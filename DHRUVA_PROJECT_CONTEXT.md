@@ -10,9 +10,7 @@ Handoff document. Everything decided so far, why it was decided, and what is sti
 |---|---|
 | Problem Statement | SIH26168 — AI-ML based Intelligent Dead Reckoning system for seamless navigation |
 | Solution name | DHRUVA |
-| Team | Slothdevs · Team ID F2BC5B |
-| Theme / Category | Smart Vehicles / Software |
-| Event | Smart India Hackathon 2026 |
+
 
 **Current stage: idea submission. No code written. No models trained. No results measured.**
 
