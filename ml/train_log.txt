@@ -1,0 +1,724 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788550278.846723   20020 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788550280.767582   20020 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1788550282.124561   20020 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+62 training files, 10 validation files (split by file, not by window, so no session leaks across the split)
+Model: "functional"
++--------------------------------------------------------------------------+
+| Layer (type)                    | Output Shape           |       Param # |
+|---------------------------------+------------------------+---------------|
+| input_layer (InputLayer)        | (None, 100, 9)         |             0 |
+|---------------------------------+------------------------+---------------|
+| conv1d (Conv1D)                 | (None, 100, 32)        |         1,472 |
+|---------------------------------+------------------------+---------------|
+| conv1d_1 (Conv1D)               | (None, 100, 64)        |        10,304 |
+|---------------------------------+------------------------+---------------|
+| max_pooling1d (MaxPooling1D)    | (None, 50, 64)         |             0 |
+|---------------------------------+------------------------+---------------|
+| lstm (LSTM)                     | (None, 64)             |        33,024 |
+|---------------------------------+------------------------+---------------|
+| dense (Dense)                   | (None, 32)             |         2,080 |
+|---------------------------------+------------------------+---------------|
+| dense_1 (Dense)                 | (None, 1)              |            33 |
++--------------------------------------------------------------------------+
+ Total params: 46,913 (183.25 KB)
+ Trainable params: 46,913 (183.25 KB)
+ Non-trainable params: 0 (0.00 B)
+C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\keras\src\trainers\epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+Epoch 1/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+
+      1/Unknown [1m5s[0m 5s/step - loss: 3065.6890 - mae: 47.4695[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+      2/Unknown [1m6s[0m 1s/step - loss: 2990.0066 - mae: 46.8896[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+      3/Unknown [1m6s[0m 798ms/step - loss: 2748.5234 - mae: 44.3873
+      4/Unknown [1m6s[0m 566ms/step - loss: 2683.3743 - mae: 43.5594
+      5/Unknown [1m7s[0m 477ms/step - loss: 2733.7361 - mae: 44.1611
+      6/Unknown [1m7s[0m 393ms/step - loss: 2756.9968 - mae: 44.3107
+      7/Unknown [1m7s[0m 337ms/step - loss: 2767.9512 - mae: 44.4711
+      8/Unknown [1m7s[0m 313ms/step - loss: 2768.5085 - mae: 44.2239
+      9/Unknown [1m7s[0m 280ms/step - loss: 2775.1890 - mae: 44.3139[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+     10/Unknown [1m7s[0m 261ms/step - loss: 2754.6128 - mae: 44.2257
+     11/Unknown [1m8s[0m 294ms/step - loss: 2770.3787 - mae: 44.3059
+     12/Unknown [1m8s[0m 273ms/step - loss: 2784.7910 - mae: 44.5051
+     13/Unknown [1m8s[0m 255ms/step - loss: 2770.2322 - mae: 44.3594
+     14/Unknown [1m8s[0m 239ms/step - loss: 2789.0024 - mae: 44.5420
+     16/Unknown [1m8s[0m 214ms/step - loss: 2723.7544 - mae: 43.8662
+     17/Unknown [1m8s[0m 204ms/step - loss: 2698.6228 - mae: 43.6909
+     18/Unknown [1m8s[0m 196ms/step - loss: 2677.3472 - mae: 43.5000
+     19/Unknown [1m8s[0m 188ms/step - loss: 2664.1567 - mae: 43.4252
+     20/Unknown [1m8s[0m 181ms/step - loss: 2650.6296 - mae: 43.2855
+     21/Unknown [1m8s[0m 175ms/step - loss: 2634.2747 - mae: 43.2258
+     22/Unknown [1m8s[0m 169ms/step - loss: 2607.2979 - mae: 42.8582
+     23/Unknown [1m8s[0m 164ms/step - loss: 2570.5518 - mae: 42.4896
+     25/Unknown [1m8s[0m 154ms/step - loss: 2515.5205 - mae: 42.0129
+     26/Unknown [1m9s[0m 151ms/step - loss: 2500.5540 - mae: 41.8712
+     27/Unknown [1m9s[0m 147ms/step - loss: 2478.0759 - mae: 41.6385
+     28/Unknown [1m9s[0m 144ms/step - loss: 2451.1350 - mae: 41.3549
+     29/Unknown [1m9s[0m 141ms/step - loss: 2432.0808 - mae: 41.1631
+     30/Unknown [1m9s[0m 137ms/step - loss: 2410.8630 - mae: 40.9641
+     31/Unknown [1m9s[0m 135ms/step - loss: 2388.4766 - mae: 40.7427
+     33/Unknown [1m9s[0m 130ms/step - loss: 2346.2881 - mae: 40.3076
+     35/Unknown [1m9s[0m 125ms/step - loss: 2305.6887 - mae: 39.8680
+     37/Unknown [1m9s[0m 121ms/step - loss: 2259.9890 - mae: 39.3665
+     38/Unknown [1m9s[0m 119ms/step - loss: 2251.9041 - mae: 39.2952
+     39/Unknown [1m9s[0m 117ms/step - loss: 2235.8872 - mae: 39.1129
+     41/Unknown [1m9s[0m 114ms/step - loss: 2207.9009 - mae: 38.8044
+     42/Unknown [1m9s[0m 112ms/step - loss: 2200.3599 - mae: 38.7221
+     43/Unknown [1m9s[0m 111ms/step - loss: 2186.2441 - mae: 38.5763
+     44/Unknown [1m9s[0m 110ms/step - loss: 2171.3171 - mae: 38.4292
+     45/Unknown [1m10s[0m 109ms/step - loss: 2153.1809 - mae: 38.2260
+     46/Unknown [1m10s[0m 107ms/step - loss: 2136.9160 - mae: 38.0629
+     47/Unknown [1m10s[0m 106ms/step - loss: 2121.5107 - mae: 37.9060
+     48/Unknown [1m10s[0m 105ms/step - loss: 2106.1746 - mae: 37.7550
+     49/Unknown [1m10s[0m 104ms/step - loss: 2093.3313 - mae: 37.6086
+     50/Unknown [1m10s[0m 103ms/step - loss: 2087.1797 - mae: 37.5559
+     51/Unknown [1m10s[0m 102ms/step - loss: 2071.3164 - mae: 37.3860
+     52/Unknown [1m10s[0m 101ms/step - loss: 2061.3069 - mae: 37.2812
+     53/Unknown [1m10s[0m 101ms/step - loss: 2054.5881 - mae: 37.1943
+     54/Unknown [1m10s[0m 100ms/step - loss: 2040.9424 - mae: 37.0474C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\keras\src\trainers\epoch_iterator.py:164: UserWarning: Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches. You may need to use the `.repeat()` function when building your dataset.
+  self._interrupted_warning()
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m18s[0m 254ms/step - loss: 2040.9424 - mae: 37.0474 - val_loss: 787.3893 - val_mae: 21.8930
+Epoch 2/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m2:32[0m 3s/step - loss: 1532.0159 - mae: 32.8514[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:15[0m 1s/step - loss: 1444.2108 - mae: 31.9947[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m41s[0m 815ms/step - loss: 1446.4215 - mae: 31.8660
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m28s[0m 577ms/step - loss: 1420.5060 - mae: 31.4514
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m23s[0m 480ms/step - loss: 1468.7893 - mae: 31.8976
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m18s[0m 394ms/step - loss: 1467.7289 - mae: 31.8027
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m14s[0m 310ms/step - loss: 1491.2089 - mae: 32.0995
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m12s[0m 280ms/step - loss: 1483.0966 - mae: 31.9759[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m11s[0m 260ms/step - loss: 1493.2322 - mae: 32.0645
+[1m11/54[0m [32m====[0m[37m================[0m [1m12s[0m 293ms/step - loss: 1480.8606 - mae: 31.8598
+[1m12/54[0m [32m====[0m[37m================[0m [1m11s[0m 271ms/step - loss: 1480.1256 - mae: 31.7984
+[1m13/54[0m [32m====[0m[37m================[0m [1m10s[0m 253ms/step - loss: 1468.9973 - mae: 31.6725
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m9s[0m 238ms/step - loss: 1448.8848 - mae: 31.4547 
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m8s[0m 225ms/step - loss: 1451.4944 - mae: 31.4650
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m8s[0m 214ms/step - loss: 1433.5365 - mae: 31.2031
+[1m17/54[0m [32m======[0m[37m==============[0m [1m7s[0m 204ms/step - loss: 1431.0330 - mae: 31.1514
+[1m18/54[0m [32m======[0m[37m==============[0m [1m7s[0m 196ms/step - loss: 1410.6217 - mae: 30.8998
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m6s[0m 188ms/step - loss: 1404.7731 - mae: 30.8633
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m6s[0m 181ms/step - loss: 1396.4954 - mae: 30.7246
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m5s[0m 174ms/step - loss: 1375.1689 - mae: 30.4154
+[1m23/54[0m [32m========[0m[37m============[0m [1m5s[0m 162ms/step - loss: 1335.2556 - mae: 29.8646
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m4s[0m 153ms/step - loss: 1313.6182 - mae: 29.5121
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m3s[0m 145ms/step - loss: 1280.9021 - mae: 29.0176
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m3s[0m 142ms/step - loss: 1262.5752 - mae: 28.7847
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m3s[0m 139ms/step - loss: 1251.9268 - mae: 28.6723
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 132ms/step - loss: 1235.4064 - mae: 28.4676
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m2s[0m 130ms/step - loss: 1225.9548 - mae: 28.3290
+[1m33/54[0m [32m============[0m[37m========[0m [1m2s[0m 128ms/step - loss: 1211.0499 - mae: 28.1468
+[1m34/54[0m [32m============[0m[37m========[0m [1m2s[0m 126ms/step - loss: 1205.7775 - mae: 28.0773
+[1m35/54[0m [32m============[0m[37m========[0m [1m2s[0m 124ms/step - loss: 1198.4083 - mae: 27.9954
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 122ms/step - loss: 1192.5638 - mae: 27.9087
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 120ms/step - loss: 1182.3875 - mae: 27.7957
+[1m38/54[0m [32m==============[0m[37m======[0m [1m1s[0m 118ms/step - loss: 1173.9352 - mae: 27.6734
+[1m40/54[0m [32m==============[0m[37m======[0m [1m1s[0m 115ms/step - loss: 1159.9797 - mae: 27.4964
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 114ms/step - loss: 1152.1497 - mae: 27.3885
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 112ms/step - loss: 1146.3680 - mae: 27.3115
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 111ms/step - loss: 1137.0946 - mae: 27.1920
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 110ms/step - loss: 1130.9440 - mae: 27.1060
+[1m45/54[0m [32m================[0m[37m====[0m [1m0s[0m 108ms/step - loss: 1121.5072 - mae: 26.9741
+[1m46/54[0m [32m=================[0m[37m===[0m [1m0s[0m 107ms/step - loss: 1119.4666 - mae: 26.9742
+[1m47/54[0m [32m=================[0m[37m===[0m [1m0s[0m 106ms/step - loss: 1110.5175 - mae: 26.8542
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 105ms/step - loss: 1102.2206 - mae: 26.7420
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 104ms/step - loss: 1093.6348 - mae: 26.6242
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 103ms/step - loss: 1085.3225 - mae: 26.4995
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 102ms/step - loss: 1082.3387 - mae: 26.4574
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 102ms/step - loss: 1076.8914 - mae: 26.4062
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 101ms/step - loss: 1071.3474 - mae: 26.3335
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 100ms/step - loss: 1068.8723 - mae: 26.2994[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m15s[0m 236ms/step - loss: 1068.8723 - mae: 26.2994 - val_loss: 518.1866 - val_mae: 18.1008
+Epoch 3/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m2:24[0m 3s/step - loss: 800.1201 - mae: 22.9237[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:20[0m 2s/step - loss: 813.8853 - mae: 22.9589[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m44s[0m 870ms/step - loss: 808.2290 - mae: 22.9621
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m30s[0m 616ms/step - loss: 830.4781 - mae: 23.5184
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m25s[0m 520ms/step - loss: 843.4982 - mae: 23.5532
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m20s[0m 428ms/step - loss: 849.4511 - mae: 23.6685
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m15s[0m 344ms/step - loss: 842.2908 - mae: 23.4706
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m13s[0m 309ms/step - loss: 855.2637 - mae: 23.7025[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m12s[0m 290ms/step - loss: 854.5015 - mae: 23.7121
+[1m11/54[0m [32m====[0m[37m================[0m [1m13s[0m 322ms/step - loss: 858.0627 - mae: 23.7673
+[1m12/54[0m [32m====[0m[37m================[0m [1m12s[0m 298ms/step - loss: 863.5823 - mae: 23.9365
+[1m13/54[0m [32m====[0m[37m================[0m [1m11s[0m 278ms/step - loss: 862.2836 - mae: 23.9433
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m10s[0m 261ms/step - loss: 866.2109 - mae: 23.9705
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m9s[0m 246ms/step - loss: 868.5449 - mae: 24.0092 
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m8s[0m 234ms/step - loss: 861.9329 - mae: 23.9130
+[1m17/54[0m [32m======[0m[37m==============[0m [1m8s[0m 223ms/step - loss: 862.5601 - mae: 23.9385
+[1m18/54[0m [32m======[0m[37m==============[0m [1m7s[0m 213ms/step - loss: 862.0599 - mae: 23.9150
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m6s[0m 196ms/step - loss: 854.4014 - mae: 23.8081
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m6s[0m 189ms/step - loss: 851.2524 - mae: 23.7597
+[1m22/54[0m [32m========[0m[37m============[0m [1m5s[0m 183ms/step - loss: 842.9887 - mae: 23.6268
+[1m24/54[0m [32m========[0m[37m============[0m [1m5s[0m 171ms/step - loss: 830.5043 - mae: 23.4512
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m4s[0m 166ms/step - loss: 826.1333 - mae: 23.3930
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m4s[0m 162ms/step - loss: 819.6617 - mae: 23.2838
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m3s[0m 154ms/step - loss: 816.3076 - mae: 23.2628
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 146ms/step - loss: 813.4505 - mae: 23.2386
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 143ms/step - loss: 808.2562 - mae: 23.1495
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 140ms/step - loss: 807.0558 - mae: 23.1329
+[1m33/54[0m [32m============[0m[37m========[0m [1m2s[0m 138ms/step - loss: 806.3226 - mae: 23.1382
+[1m34/54[0m [32m============[0m[37m========[0m [1m2s[0m 135ms/step - loss: 806.9263 - mae: 23.1646
+[1m35/54[0m [32m============[0m[37m========[0m [1m2s[0m 133ms/step - loss: 806.2961 - mae: 23.1618
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 131ms/step - loss: 807.7450 - mae: 23.1891
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 128ms/step - loss: 804.5771 - mae: 23.1246
+[1m38/54[0m [32m==============[0m[37m======[0m [1m2s[0m 127ms/step - loss: 806.3058 - mae: 23.1843
+[1m39/54[0m [32m==============[0m[37m======[0m [1m1s[0m 125ms/step - loss: 802.8168 - mae: 23.1430
+[1m40/54[0m [32m==============[0m[37m======[0m [1m1s[0m 123ms/step - loss: 801.7762 - mae: 23.1161
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 121ms/step - loss: 799.5278 - mae: 23.0847
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 118ms/step - loss: 795.3996 - mae: 23.0213
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 117ms/step - loss: 793.1583 - mae: 22.9897
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 115ms/step - loss: 791.4235 - mae: 22.9729
+[1m46/54[0m [32m=================[0m[37m===[0m [1m0s[0m 114ms/step - loss: 789.5637 - mae: 22.9490
+[1m47/54[0m [32m=================[0m[37m===[0m [1m0s[0m 113ms/step - loss: 789.2406 - mae: 22.9290
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 111ms/step - loss: 787.6006 - mae: 22.8982
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 109ms/step - loss: 787.4164 - mae: 22.8886
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 107ms/step - loss: 786.8746 - mae: 22.8907
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 105ms/step - loss: 787.7078 - mae: 22.9204[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m16s[0m 245ms/step - loss: 787.7078 - mae: 22.9204 - val_loss: 575.0200 - val_mae: 19.4403
+Epoch 4/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m3:34[0m 4s/step - loss: 857.0439 - mae: 23.9437[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:43[0m 2s/step - loss: 786.7416 - mae: 22.5611[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m57s[0m 1s/step - loss: 778.3084 - mae: 22.4223 
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m40s[0m 802ms/step - loss: 773.3820 - mae: 22.3704
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m32s[0m 673ms/step - loss: 776.0204 - mae: 22.5638
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m26s[0m 553ms/step - loss: 780.1937 - mae: 22.6412
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m22s[0m 472ms/step - loss: 777.9973 - mae: 22.6035
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m20s[0m 440ms/step - loss: 793.7212 - mae: 22.9142
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m17s[0m 395ms/step - loss: 784.2414 - mae: 22.8145[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m16s[0m 369ms/step - loss: 799.4556 - mae: 23.0416
+[1m11/54[0m [32m====[0m[37m================[0m [1m17s[0m 419ms/step - loss: 802.6566 - mae: 23.1158
+[1m12/54[0m [32m====[0m[37m================[0m [1m16s[0m 387ms/step - loss: 810.3356 - mae: 23.2590
+[1m13/54[0m [32m====[0m[37m================[0m [1m14s[0m 361ms/step - loss: 814.3728 - mae: 23.3474
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m13s[0m 339ms/step - loss: 824.5493 - mae: 23.5681
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m12s[0m 321ms/step - loss: 823.3295 - mae: 23.5353
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m11s[0m 305ms/step - loss: 829.8954 - mae: 23.6866
+[1m17/54[0m [32m======[0m[37m==============[0m [1m10s[0m 290ms/step - loss: 826.4468 - mae: 23.6062
+[1m18/54[0m [32m======[0m[37m==============[0m [1m9s[0m 277ms/step - loss: 819.5935 - mae: 23.4728 
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m9s[0m 266ms/step - loss: 819.1749 - mae: 23.4527
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m8s[0m 255ms/step - loss: 814.9885 - mae: 23.3672
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m8s[0m 246ms/step - loss: 811.0806 - mae: 23.3294
+[1m22/54[0m [32m========[0m[37m============[0m [1m7s[0m 237ms/step - loss: 806.2241 - mae: 23.2320
+[1m23/54[0m [32m========[0m[37m============[0m [1m7s[0m 229ms/step - loss: 807.3638 - mae: 23.2472
+[1m24/54[0m [32m========[0m[37m============[0m [1m6s[0m 222ms/step - loss: 803.9323 - mae: 23.1928
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m6s[0m 215ms/step - loss: 803.2221 - mae: 23.2059
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m5s[0m 209ms/step - loss: 801.9589 - mae: 23.1780
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 203ms/step - loss: 805.9643 - mae: 23.2731
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 198ms/step - loss: 801.7018 - mae: 23.2169
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m4s[0m 193ms/step - loss: 803.4433 - mae: 23.2386
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 189ms/step - loss: 800.8405 - mae: 23.2077
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 185ms/step - loss: 796.8770 - mae: 23.1335
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 181ms/step - loss: 797.4928 - mae: 23.1548
+[1m33/54[0m [32m============[0m[37m========[0m [1m3s[0m 177ms/step - loss: 794.8776 - mae: 23.1127
+[1m34/54[0m [32m============[0m[37m========[0m [1m3s[0m 174ms/step - loss: 794.3426 - mae: 23.0910
+[1m35/54[0m [32m============[0m[37m========[0m [1m3s[0m 171ms/step - loss: 794.3771 - mae: 23.1007
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 168ms/step - loss: 793.2360 - mae: 23.0804
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 165ms/step - loss: 791.2090 - mae: 23.0227
+[1m38/54[0m [32m==============[0m[37m======[0m [1m2s[0m 162ms/step - loss: 789.2884 - mae: 22.9961
+[1m39/54[0m [32m==============[0m[37m======[0m [1m2s[0m 160ms/step - loss: 787.4160 - mae: 22.9863
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 157ms/step - loss: 786.3723 - mae: 22.9618
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 155ms/step - loss: 785.3256 - mae: 22.9429
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 153ms/step - loss: 784.2490 - mae: 22.9446
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 151ms/step - loss: 782.8464 - mae: 22.9282
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 149ms/step - loss: 781.0306 - mae: 22.8928
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 147ms/step - loss: 780.6772 - mae: 22.8743
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 145ms/step - loss: 781.3637 - mae: 22.8767
+[1m47/54[0m [32m=================[0m[37m===[0m [1m1s[0m 143ms/step - loss: 777.0622 - mae: 22.8083
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 141ms/step - loss: 779.4065 - mae: 22.8422
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 140ms/step - loss: 779.6597 - mae: 22.8473
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 138ms/step - loss: 781.0963 - mae: 22.8776
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 137ms/step - loss: 783.8509 - mae: 22.9328
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 136ms/step - loss: 782.2546 - mae: 22.9043
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 134ms/step - loss: 780.8091 - mae: 22.8877
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 133ms/step - loss: 778.4554 - mae: 22.8422[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m25s[0m 387ms/step - loss: 778.4554 - mae: 22.8422 - val_loss: 580.6422 - val_mae: 19.5586
+Epoch 5/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m5:39[0m 6s/step - loss: 670.0059 - mae: 20.3710[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:36[0m 2s/step - loss: 699.0791 - mae: 20.7932[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m52s[0m 1s/step - loss: 739.0498 - mae: 21.6317 
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m36s[0m 731ms/step - loss: 734.0652 - mae: 21.4011
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m29s[0m 598ms/step - loss: 761.0106 - mae: 21.8766
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m23s[0m 490ms/step - loss: 766.1203 - mae: 22.0697
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m19s[0m 418ms/step - loss: 768.7411 - mae: 22.1664
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m17s[0m 383ms/step - loss: 792.8665 - mae: 22.6165
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m15s[0m 343ms/step - loss: 802.8759 - mae: 22.8128[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m14s[0m 319ms/step - loss: 813.8189 - mae: 22.9937
+[1m11/54[0m [32m====[0m[37m================[0m [1m14s[0m 340ms/step - loss: 819.9637 - mae: 23.1580
+[1m13/54[0m [32m====[0m[37m================[0m [1m11s[0m 292ms/step - loss: 813.4039 - mae: 23.1314
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m10s[0m 257ms/step - loss: 807.2071 - mae: 23.0946
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m9s[0m 243ms/step - loss: 800.7930 - mae: 23.0061 
+[1m17/54[0m [32m======[0m[37m==============[0m [1m8s[0m 231ms/step - loss: 799.8882 - mae: 23.0627
+[1m18/54[0m [32m======[0m[37m==============[0m [1m7s[0m 221ms/step - loss: 799.9681 - mae: 23.0773
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m7s[0m 212ms/step - loss: 794.6575 - mae: 23.0058
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m6s[0m 196ms/step - loss: 792.0601 - mae: 22.9543
+[1m22/54[0m [32m========[0m[37m============[0m [1m6s[0m 189ms/step - loss: 793.7449 - mae: 22.9677
+[1m23/54[0m [32m========[0m[37m============[0m [1m5s[0m 183ms/step - loss: 796.0052 - mae: 23.0508
+[1m24/54[0m [32m========[0m[37m============[0m [1m5s[0m 177ms/step - loss: 799.0873 - mae: 23.1567
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m4s[0m 167ms/step - loss: 795.1661 - mae: 23.0743
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m4s[0m 158ms/step - loss: 791.1190 - mae: 23.0161
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 151ms/step - loss: 790.7809 - mae: 23.0006
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 144ms/step - loss: 785.9335 - mae: 22.9063
+[1m34/54[0m [32m============[0m[37m========[0m [1m2s[0m 139ms/step - loss: 784.2950 - mae: 22.8775
+[1m35/54[0m [32m============[0m[37m========[0m [1m2s[0m 136ms/step - loss: 788.8511 - mae: 22.9614
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 134ms/step - loss: 785.0420 - mae: 22.9065
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 131ms/step - loss: 781.8960 - mae: 22.8703
+[1m38/54[0m [32m==============[0m[37m======[0m [1m2s[0m 129ms/step - loss: 781.5995 - mae: 22.8654
+[1m39/54[0m [32m==============[0m[37m======[0m [1m1s[0m 127ms/step - loss: 778.9102 - mae: 22.8194
+[1m40/54[0m [32m==============[0m[37m======[0m [1m1s[0m 125ms/step - loss: 779.8234 - mae: 22.8510
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 124ms/step - loss: 781.9533 - mae: 22.8954
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 122ms/step - loss: 778.8647 - mae: 22.8558
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 120ms/step - loss: 778.8408 - mae: 22.8501
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 119ms/step - loss: 779.3508 - mae: 22.8701
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 117ms/step - loss: 779.6514 - mae: 22.8667
+[1m47/54[0m [32m=================[0m[37m===[0m [1m0s[0m 114ms/step - loss: 780.6408 - mae: 22.8870
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 113ms/step - loss: 779.3886 - mae: 22.8489
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 112ms/step - loss: 780.3264 - mae: 22.8604
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 111ms/step - loss: 779.8170 - mae: 22.8666
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 110ms/step - loss: 779.7159 - mae: 22.8621
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 109ms/step - loss: 780.1409 - mae: 22.8621
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 108ms/step - loss: 779.4642 - mae: 22.8466
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 107ms/step - loss: 778.3271 - mae: 22.8319[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m20s[0m 247ms/step - loss: 778.3271 - mae: 22.8319 - val_loss: 568.0138 - val_mae: 19.2913
+Epoch 6/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m3:21[0m 4s/step - loss: 729.7473 - mae: 21.4989[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m2:33[0m 3s/step - loss: 778.1457 - mae: 22.7043[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m1:22[0m 2s/step - loss: 825.6345 - mae: 23.5573
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m56s[0m 1s/step - loss: 808.3568 - mae: 23.2320 
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m45s[0m 921ms/step - loss: 795.4009 - mae: 22.9236
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m36s[0m 750ms/step - loss: 808.6711 - mae: 23.1429
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m29s[0m 636ms/step - loss: 803.0335 - mae: 23.1801
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m26s[0m 579ms/step - loss: 813.3740 - mae: 23.3510
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m23s[0m 516ms/step - loss: 804.4277 - mae: 23.2197[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m21s[0m 478ms/step - loss: 805.5790 - mae: 23.1966
+[1m11/54[0m [32m====[0m[37m================[0m [1m22s[0m 526ms/step - loss: 812.3406 - mae: 23.3088
+[1m12/54[0m [32m====[0m[37m================[0m [1m20s[0m 486ms/step - loss: 817.2369 - mae: 23.3641
+[1m13/54[0m [32m====[0m[37m================[0m [1m18s[0m 453ms/step - loss: 816.3491 - mae: 23.3977
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m16s[0m 424ms/step - loss: 821.3515 - mae: 23.4896
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m15s[0m 399ms/step - loss: 823.7493 - mae: 23.5167
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m14s[0m 378ms/step - loss: 815.4553 - mae: 23.3567
+[1m17/54[0m [32m======[0m[37m==============[0m [1m13s[0m 358ms/step - loss: 803.2365 - mae: 23.1347
+[1m18/54[0m [32m======[0m[37m==============[0m [1m12s[0m 342ms/step - loss: 804.9753 - mae: 23.1886
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m11s[0m 327ms/step - loss: 805.3979 - mae: 23.2318
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m10s[0m 314ms/step - loss: 806.7399 - mae: 23.2624
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m9s[0m 302ms/step - loss: 802.1724 - mae: 23.1872 
+[1m22/54[0m [32m========[0m[37m============[0m [1m9s[0m 291ms/step - loss: 799.3538 - mae: 23.1649
+[1m23/54[0m [32m========[0m[37m============[0m [1m8s[0m 281ms/step - loss: 806.7357 - mae: 23.3080
+[1m24/54[0m [32m========[0m[37m============[0m [1m8s[0m 272ms/step - loss: 804.4105 - mae: 23.2671
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m7s[0m 264ms/step - loss: 800.1855 - mae: 23.1937
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m7s[0m 256ms/step - loss: 799.4249 - mae: 23.2077
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 249ms/step - loss: 798.6652 - mae: 23.1919
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 243ms/step - loss: 795.2413 - mae: 23.1344
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 237ms/step - loss: 791.8782 - mae: 23.0721
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 231ms/step - loss: 790.8129 - mae: 23.0593
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 226ms/step - loss: 789.9908 - mae: 23.0463
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 220ms/step - loss: 787.2126 - mae: 23.0038
+[1m33/54[0m [32m============[0m[37m========[0m [1m4s[0m 216ms/step - loss: 785.2328 - mae: 22.9775
+[1m34/54[0m [32m============[0m[37m========[0m [1m4s[0m 211ms/step - loss: 788.4886 - mae: 23.0168
+[1m35/54[0m [32m============[0m[37m========[0m [1m3s[0m 207ms/step - loss: 791.6827 - mae: 23.0741
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 203ms/step - loss: 789.1328 - mae: 23.0197
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 199ms/step - loss: 790.1400 - mae: 23.0481
+[1m38/54[0m [32m==============[0m[37m======[0m [1m3s[0m 196ms/step - loss: 787.1671 - mae: 23.0071
+[1m39/54[0m [32m==============[0m[37m======[0m [1m2s[0m 193ms/step - loss: 785.4896 - mae: 22.9686
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 190ms/step - loss: 787.3085 - mae: 23.0016
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 187ms/step - loss: 788.9718 - mae: 23.0312
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 184ms/step - loss: 789.0872 - mae: 23.0262
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 181ms/step - loss: 785.5372 - mae: 22.9690
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 179ms/step - loss: 784.6344 - mae: 22.9352
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 176ms/step - loss: 782.3471 - mae: 22.8951
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 174ms/step - loss: 781.3498 - mae: 22.8783
+[1m47/54[0m [32m=================[0m[37m===[0m [1m1s[0m 172ms/step - loss: 784.2723 - mae: 22.9304
+[1m48/54[0m [32m=================[0m[37m===[0m [1m1s[0m 169ms/step - loss: 784.4207 - mae: 22.9425
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 167ms/step - loss: 783.4443 - mae: 22.9395
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 165ms/step - loss: 783.0823 - mae: 22.9318
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 163ms/step - loss: 782.1741 - mae: 22.9155
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 161ms/step - loss: 782.0292 - mae: 22.9123
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 160ms/step - loss: 781.2308 - mae: 22.9013
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 158ms/step - loss: 778.6264 - mae: 22.8550[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m20s[0m 314ms/step - loss: 778.6264 - mae: 22.8550 - val_loss: 566.1818 - val_mae: 19.2511
+Epoch 7/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m3:27[0m 4s/step - loss: 762.3864 - mae: 22.0415[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:43[0m 2s/step - loss: 788.8412 - mae: 22.7475[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m56s[0m 1s/step - loss: 774.3325 - mae: 22.5042 
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m39s[0m 787ms/step - loss: 780.0208 - mae: 22.6372
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m32s[0m 665ms/step - loss: 791.0138 - mae: 22.7553
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m26s[0m 545ms/step - loss: 789.6851 - mae: 22.7331
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m21s[0m 464ms/step - loss: 816.9248 - mae: 23.0952
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m19s[0m 434ms/step - loss: 819.3795 - mae: 23.1528
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m17s[0m 389ms/step - loss: 837.6394 - mae: 23.4687[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m16s[0m 367ms/step - loss: 838.3439 - mae: 23.5124
+[1m11/54[0m [32m====[0m[37m================[0m [1m17s[0m 410ms/step - loss: 850.2244 - mae: 23.7501
+[1m12/54[0m [32m====[0m[37m================[0m [1m15s[0m 379ms/step - loss: 851.9368 - mae: 23.8426
+[1m13/54[0m [32m====[0m[37m================[0m [1m14s[0m 353ms/step - loss: 848.9645 - mae: 23.8220
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m13s[0m 331ms/step - loss: 850.4917 - mae: 23.8707
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m12s[0m 312ms/step - loss: 845.7469 - mae: 23.8175
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m11s[0m 296ms/step - loss: 847.6862 - mae: 23.8534
+[1m17/54[0m [32m======[0m[37m==============[0m [1m10s[0m 282ms/step - loss: 847.5148 - mae: 23.8763
+[1m18/54[0m [32m======[0m[37m==============[0m [1m9s[0m 269ms/step - loss: 838.2370 - mae: 23.6777 
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m9s[0m 258ms/step - loss: 833.3889 - mae: 23.5781
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m8s[0m 248ms/step - loss: 835.0373 - mae: 23.6072
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m7s[0m 238ms/step - loss: 830.6349 - mae: 23.5616
+[1m22/54[0m [32m========[0m[37m============[0m [1m7s[0m 230ms/step - loss: 824.8314 - mae: 23.4624
+[1m23/54[0m [32m========[0m[37m============[0m [1m6s[0m 222ms/step - loss: 825.4306 - mae: 23.4748
+[1m24/54[0m [32m========[0m[37m============[0m [1m6s[0m 215ms/step - loss: 821.7079 - mae: 23.4167
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m6s[0m 209ms/step - loss: 816.3965 - mae: 23.3685
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m5s[0m 203ms/step - loss: 816.6490 - mae: 23.3920
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 197ms/step - loss: 812.9374 - mae: 23.3241
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 193ms/step - loss: 810.6240 - mae: 23.2954
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m4s[0m 188ms/step - loss: 809.5632 - mae: 23.2965
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 184ms/step - loss: 805.4630 - mae: 23.2496
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 180ms/step - loss: 802.3659 - mae: 23.1950
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m3s[0m 176ms/step - loss: 801.1406 - mae: 23.1672
+[1m33/54[0m [32m============[0m[37m========[0m [1m3s[0m 172ms/step - loss: 799.1208 - mae: 23.1400
+[1m34/54[0m [32m============[0m[37m========[0m [1m3s[0m 169ms/step - loss: 800.0953 - mae: 23.1767
+[1m35/54[0m [32m============[0m[37m========[0m [1m3s[0m 166ms/step - loss: 795.0919 - mae: 23.0876
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 163ms/step - loss: 792.0225 - mae: 23.0281
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m2s[0m 160ms/step - loss: 791.0121 - mae: 23.0213
+[1m38/54[0m [32m==============[0m[37m======[0m [1m2s[0m 158ms/step - loss: 790.0483 - mae: 22.9942
+[1m39/54[0m [32m==============[0m[37m======[0m [1m2s[0m 155ms/step - loss: 789.6100 - mae: 22.9978
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 153ms/step - loss: 787.3551 - mae: 22.9633
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 151ms/step - loss: 787.5237 - mae: 22.9705
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 149ms/step - loss: 789.2896 - mae: 23.0036
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 147ms/step - loss: 789.3551 - mae: 22.9993
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 146ms/step - loss: 787.5774 - mae: 22.9607
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 144ms/step - loss: 787.2375 - mae: 22.9496
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 143ms/step - loss: 787.8106 - mae: 22.9664
+[1m47/54[0m [32m=================[0m[37m===[0m [1m0s[0m 142ms/step - loss: 786.2532 - mae: 22.9448
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 140ms/step - loss: 784.7828 - mae: 22.9171
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 139ms/step - loss: 786.5481 - mae: 22.9415
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 138ms/step - loss: 787.2776 - mae: 22.9567
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 137ms/step - loss: 783.5538 - mae: 22.8805
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 136ms/step - loss: 782.1880 - mae: 22.8592
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 135ms/step - loss: 779.9655 - mae: 22.8234
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 134ms/step - loss: 779.9813 - mae: 22.8258[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m21s[0m 317ms/step - loss: 779.9813 - mae: 22.8258 - val_loss: 548.5583 - val_mae: 18.8569
+Epoch 8/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m2:21[0m 3s/step - loss: 934.4064 - mae: 24.7454[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m1:47[0m 2s/step - loss: 897.2189 - mae: 24.4827[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m1:02[0m 1s/step - loss: 866.0156 - mae: 24.0097
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m44s[0m 885ms/step - loss: 856.5144 - mae: 23.8458
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m37s[0m 764ms/step - loss: 856.0701 - mae: 23.8398
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m30s[0m 629ms/step - loss: 864.4973 - mae: 23.9039
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m25s[0m 539ms/step - loss: 879.0031 - mae: 24.1517
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m23s[0m 505ms/step - loss: 859.6356 - mae: 23.8885
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m20s[0m 454ms/step - loss: 855.2259 - mae: 23.8383[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m18s[0m 429ms/step - loss: 856.9279 - mae: 23.9473
+[1m11/54[0m [32m====[0m[37m================[0m [1m20s[0m 487ms/step - loss: 851.9139 - mae: 23.9034
+[1m12/54[0m [32m====[0m[37m================[0m [1m18s[0m 452ms/step - loss: 850.2095 - mae: 23.8683
+[1m13/54[0m [32m====[0m[37m================[0m [1m17s[0m 422ms/step - loss: 849.9374 - mae: 23.8965
+[1m14/54[0m [32m=====[0m[37m===============[0m [1m15s[0m 395ms/step - loss: 845.0298 - mae: 23.8383
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m14s[0m 374ms/step - loss: 835.2984 - mae: 23.6415
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m13s[0m 355ms/step - loss: 828.3264 - mae: 23.5016
+[1m17/54[0m [32m======[0m[37m==============[0m [1m12s[0m 339ms/step - loss: 825.1236 - mae: 23.4560
+[1m18/54[0m [32m======[0m[37m==============[0m [1m11s[0m 324ms/step - loss: 826.3531 - mae: 23.5026
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m10s[0m 311ms/step - loss: 822.0251 - mae: 23.4078
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m10s[0m 299ms/step - loss: 814.5474 - mae: 23.2808
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m9s[0m 289ms/step - loss: 811.3849 - mae: 23.2176 
+[1m22/54[0m [32m========[0m[37m============[0m [1m8s[0m 279ms/step - loss: 811.5533 - mae: 23.2052
+[1m23/54[0m [32m========[0m[37m============[0m [1m8s[0m 270ms/step - loss: 805.8250 - mae: 23.1249
+[1m24/54[0m [32m========[0m[37m============[0m [1m7s[0m 262ms/step - loss: 807.9619 - mae: 23.1838
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m7s[0m 254ms/step - loss: 804.0352 - mae: 23.1320
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m6s[0m 247ms/step - loss: 802.1390 - mae: 23.1354
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 240ms/step - loss: 801.5048 - mae: 23.1405
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 234ms/step - loss: 795.8226 - mae: 23.0322
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 228ms/step - loss: 794.2389 - mae: 22.9859
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 223ms/step - loss: 792.1340 - mae: 22.9391
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 218ms/step - loss: 791.6115 - mae: 22.9362
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 213ms/step - loss: 790.2213 - mae: 22.9511
+[1m33/54[0m [32m============[0m[37m========[0m [1m4s[0m 208ms/step - loss: 792.8721 - mae: 23.0102
+[1m34/54[0m [32m============[0m[37m========[0m [1m4s[0m 204ms/step - loss: 791.9139 - mae: 23.0007
+[1m35/54[0m [32m============[0m[37m========[0m [1m3s[0m 200ms/step - loss: 790.9694 - mae: 23.0069
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 196ms/step - loss: 786.8057 - mae: 22.9479
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 193ms/step - loss: 787.1441 - mae: 22.9557
+[1m38/54[0m [32m==============[0m[37m======[0m [1m3s[0m 189ms/step - loss: 786.9387 - mae: 22.9434
+[1m39/54[0m [32m==============[0m[37m======[0m [1m2s[0m 186ms/step - loss: 787.7942 - mae: 22.9607
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 183ms/step - loss: 785.1934 - mae: 22.9152
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 180ms/step - loss: 785.1279 - mae: 22.9198
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 177ms/step - loss: 784.2916 - mae: 22.8972
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 174ms/step - loss: 784.1909 - mae: 22.9010
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 172ms/step - loss: 785.2431 - mae: 22.9171
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 170ms/step - loss: 785.1467 - mae: 22.9086
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 167ms/step - loss: 786.7010 - mae: 22.9461
+[1m47/54[0m [32m=================[0m[37m===[0m [1m1s[0m 165ms/step - loss: 786.7838 - mae: 22.9395
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 164ms/step - loss: 782.3583 - mae: 22.8540
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 162ms/step - loss: 783.4503 - mae: 22.8689
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 160ms/step - loss: 784.3279 - mae: 22.8847
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 159ms/step - loss: 782.1265 - mae: 22.8540
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 157ms/step - loss: 783.2574 - mae: 22.8846
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 156ms/step - loss: 780.4130 - mae: 22.8362
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 154ms/step - loss: 780.1349 - mae: 22.8399[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m23s[0m 387ms/step - loss: 780.1349 - mae: 22.8399 - val_loss: 573.2549 - val_mae: 19.4030
+Epoch 9/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m4:22[0m 5s/step - loss: 852.5859 - mae: 23.6794[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m2:52[0m 3s/step - loss: 809.0399 - mae: 23.0185[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m1:34[0m 2s/step - loss: 831.0908 - mae: 23.2735
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m1:04[0m 1s/step - loss: 837.2399 - mae: 23.5264
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m52s[0m 1s/step - loss: 823.7684 - mae: 23.2934 
+[1m 6/54[0m [32m==[0m[37m==================[0m [1m42s[0m 882ms/step - loss: 818.5681 - mae: 23.1508
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m35s[0m 748ms/step - loss: 825.4183 - mae: 23.3365
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m31s[0m 689ms/step - loss: 830.4140 - mae: 23.4256
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m27s[0m 613ms/step - loss: 817.6138 - mae: 23.2362[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m24s[0m 568ms/step - loss: 825.5835 - mae: 23.4219
+[1m11/54[0m [32m====[0m[37m================[0m [1m25s[0m 594ms/step - loss: 830.6298 - mae: 23.4765
+[1m13/54[0m [32m====[0m[37m================[0m [1m20s[0m 502ms/step - loss: 844.0449 - mae: 23.7556
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m17s[0m 436ms/step - loss: 842.1818 - mae: 23.7152
+[1m17/54[0m [32m======[0m[37m==============[0m [1m14s[0m 387ms/step - loss: 832.8473 - mae: 23.5572
+[1m18/54[0m [32m======[0m[37m==============[0m [1m13s[0m 369ms/step - loss: 832.3536 - mae: 23.5253
+[1m19/54[0m [32m=======[0m[37m=============[0m [1m12s[0m 353ms/step - loss: 824.1860 - mae: 23.4038
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m11s[0m 338ms/step - loss: 819.2623 - mae: 23.3332
+[1m21/54[0m [32m=======[0m[37m=============[0m [1m10s[0m 325ms/step - loss: 817.3546 - mae: 23.3178
+[1m22/54[0m [32m========[0m[37m============[0m [1m10s[0m 314ms/step - loss: 815.4354 - mae: 23.2727
+[1m23/54[0m [32m========[0m[37m============[0m [1m9s[0m 303ms/step - loss: 813.5046 - mae: 23.2209 
+[1m24/54[0m [32m========[0m[37m============[0m [1m8s[0m 293ms/step - loss: 812.4697 - mae: 23.2175
+[1m25/54[0m [32m=========[0m[37m===========[0m [1m8s[0m 284ms/step - loss: 810.1490 - mae: 23.1749
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m7s[0m 276ms/step - loss: 807.5918 - mae: 23.1509
+[1m27/54[0m [32m==========[0m[37m==========[0m [1m7s[0m 268ms/step - loss: 810.7328 - mae: 23.2244
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 261ms/step - loss: 814.6865 - mae: 23.3123
+[1m29/54[0m [32m==========[0m[37m==========[0m [1m6s[0m 255ms/step - loss: 812.4722 - mae: 23.2825
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 248ms/step - loss: 809.2142 - mae: 23.2472
+[1m31/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 243ms/step - loss: 807.8519 - mae: 23.2164
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m5s[0m 237ms/step - loss: 807.8016 - mae: 23.2306
+[1m33/54[0m [32m============[0m[37m========[0m [1m4s[0m 232ms/step - loss: 807.0834 - mae: 23.2249
+[1m34/54[0m [32m============[0m[37m========[0m [1m4s[0m 227ms/step - loss: 806.2141 - mae: 23.2243
+[1m35/54[0m [32m============[0m[37m========[0m [1m4s[0m 223ms/step - loss: 805.0887 - mae: 23.2251
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 219ms/step - loss: 802.3741 - mae: 23.1749
+[1m37/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 215ms/step - loss: 803.7458 - mae: 23.2089
+[1m38/54[0m [32m==============[0m[37m======[0m [1m3s[0m 211ms/step - loss: 798.8294 - mae: 23.1277
+[1m39/54[0m [32m==============[0m[37m======[0m [1m3s[0m 207ms/step - loss: 795.5196 - mae: 23.0984
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 204ms/step - loss: 794.6121 - mae: 23.0778
+[1m41/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 201ms/step - loss: 794.0241 - mae: 23.0704
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 198ms/step - loss: 791.4230 - mae: 23.0367
+[1m43/54[0m [32m===============[0m[37m=====[0m [1m2s[0m 194ms/step - loss: 788.6376 - mae: 23.0061
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 192ms/step - loss: 785.1119 - mae: 22.9441
+[1m45/54[0m [32m================[0m[37m====[0m [1m1s[0m 189ms/step - loss: 784.6746 - mae: 22.9375
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 187ms/step - loss: 784.0055 - mae: 22.9319
+[1m47/54[0m [32m=================[0m[37m===[0m [1m1s[0m 184ms/step - loss: 782.9886 - mae: 22.9139
+[1m48/54[0m [32m=================[0m[37m===[0m [1m1s[0m 182ms/step - loss: 781.1963 - mae: 22.8783
+[1m49/54[0m [32m==================[0m[37m==[0m [1m0s[0m 180ms/step - loss: 779.9894 - mae: 22.8606
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 178ms/step - loss: 778.9059 - mae: 22.8419
+[1m51/54[0m [32m==================[0m[37m==[0m [1m0s[0m 176ms/step - loss: 782.0647 - mae: 22.8988
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 174ms/step - loss: 780.8075 - mae: 22.8789
+[1m53/54[0m [32m===================[0m[37m=[0m [1m0s[0m 172ms/step - loss: 778.6035 - mae: 22.8441
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 170ms/step - loss: 779.3022 - mae: 22.8561[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m24s[0m 368ms/step - loss: 779.3022 - mae: 22.8561 - val_loss: 571.1268 - val_mae: 19.3576
+Epoch 10/80
+[skip] Categorised IOVNB Dataset\Vta (Driver E)\Vta01b: S has 954 rows, V has 953 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 1/54[0m [37m====================[0m [1m5:01[0m 6s/step - loss: 758.0322 - mae: 22.5107[skip] Categorised IOVNB Dataset\Vtb (Driver E)\Vtb10: S has 196 rows, V has 195 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw01: S has 20476 rows, V has 20475 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw02: S has 52713 rows, V has 52712 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw04: S has 126526 rows, V has 126527 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 2/54[0m [37m====================[0m [1m2:48[0m 3s/step - loss: 784.1254 - mae: 22.7099[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw09: S has 552 rows, V has 553 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m 3/54[0m [32m=[0m[37m===================[0m [1m1:30[0m 2s/step - loss: 781.8484 - mae: 22.7789
+[1m 4/54[0m [32m=[0m[37m===================[0m [1m1:01[0m 1s/step - loss: 806.3928 - mae: 23.0551
+[1m 5/54[0m [32m=[0m[37m===================[0m [1m49s[0m 1s/step - loss: 788.4377 - mae: 22.7340 
+[1m 7/54[0m [32m==[0m[37m==================[0m [1m32s[0m 684ms/step - loss: 821.9169 - mae: 23.3926
+[1m 8/54[0m [32m==[0m[37m==================[0m [1m28s[0m 622ms/step - loss: 823.2796 - mae: 23.4155
+[1m 9/54[0m [32m===[0m[37m=================[0m [1m24s[0m 551ms/step - loss: 823.2854 - mae: 23.2801[skip] Categorised IOVNB Dataset\Vw (Driver E)\Vw15: S has 1380 rows, V has 1391 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m10/54[0m [32m===[0m[37m=================[0m [1m22s[0m 502ms/step - loss: 821.9861 - mae: 23.2928
+[1m11/54[0m [32m====[0m[37m================[0m [1m21s[0m 507ms/step - loss: 826.9895 - mae: 23.4361
+[1m13/54[0m [32m====[0m[37m================[0m [1m17s[0m 430ms/step - loss: 826.9012 - mae: 23.5546
+[1m15/54[0m [32m=====[0m[37m===============[0m [1m14s[0m 374ms/step - loss: 822.9764 - mae: 23.4674
+[1m16/54[0m [32m=====[0m[37m===============[0m [1m13s[0m 352ms/step - loss: 823.7311 - mae: 23.4824
+[1m18/54[0m [32m======[0m[37m==============[0m [1m11s[0m 316ms/step - loss: 815.9066 - mae: 23.3342
+[1m20/54[0m [32m=======[0m[37m=============[0m [1m9s[0m 287ms/step - loss: 811.9095 - mae: 23.2710 
+[1m22/54[0m [32m========[0m[37m============[0m [1m8s[0m 263ms/step - loss: 806.6502 - mae: 23.1969
+[1m24/54[0m [32m========[0m[37m============[0m [1m7s[0m 244ms/step - loss: 797.7359 - mae: 23.0849
+[1m26/54[0m [32m=========[0m[37m===========[0m [1m6s[0m 228ms/step - loss: 794.0946 - mae: 23.0587
+[1m28/54[0m [32m==========[0m[37m==========[0m [1m5s[0m 214ms/step - loss: 790.0349 - mae: 22.9784
+[1m30/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 202ms/step - loss: 790.9728 - mae: 22.9803
+[1m32/54[0m [32m===========[0m[37m=========[0m [1m4s[0m 192ms/step - loss: 789.7894 - mae: 22.9528
+[1m34/54[0m [32m============[0m[37m========[0m [1m3s[0m 183ms/step - loss: 785.2922 - mae: 22.8878
+[1m36/54[0m [32m=============[0m[37m=======[0m [1m3s[0m 174ms/step - loss: 783.7888 - mae: 22.8556
+[1m38/54[0m [32m==============[0m[37m======[0m [1m2s[0m 167ms/step - loss: 780.7792 - mae: 22.8265
+[1m40/54[0m [32m==============[0m[37m======[0m [1m2s[0m 161ms/step - loss: 782.8703 - mae: 22.8868
+[1m42/54[0m [32m===============[0m[37m=====[0m [1m1s[0m 155ms/step - loss: 783.1737 - mae: 22.9055
+[1m44/54[0m [32m================[0m[37m====[0m [1m1s[0m 150ms/step - loss: 779.0430 - mae: 22.8354
+[1m46/54[0m [32m=================[0m[37m===[0m [1m1s[0m 145ms/step - loss: 778.4701 - mae: 22.8358
+[1m48/54[0m [32m=================[0m[37m===[0m [1m0s[0m 141ms/step - loss: 779.4217 - mae: 22.8355
+[1m50/54[0m [32m==================[0m[37m==[0m [1m0s[0m 136ms/step - loss: 778.2011 - mae: 22.8281
+[1m52/54[0m [32m===================[0m[37m=[0m [1m0s[0m 133ms/step - loss: 778.1923 - mae: 22.8331
+[1m54/54[0m [32m====================[0m[37m[0m [1m0s[0m 129ms/step - loss: 778.7865 - mae: 22.8337[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa01: S has 11486 rows, V has 11535 rows — not actually row-synchronised, don't zip them blindly.
+[skip] Categorised IOVNB Dataset\Vf (Driver E)\V-Vfa02: S has 67523 rows, V has 67755 rows — not actually row-synchronised, don't zip them blindly.
+
+[1m54/54[0m [32m====================[0m[37m[0m [1m24s[0m 353ms/step - loss: 778.7865 - mae: 22.8337 - val_loss: 577.7875 - val_mae: 19.4992
+
+Total training time: 3.4 min for 80 epochs (2.6s/epoch average).
+Saved speed_model_loss_curve.png
+
+[1m 1/16[0m [32m=[0m[37m===================[0m [1m7s[0m 484ms/step
+[1m 3/16[0m [32m===[0m[37m=================[0m [1m0s[0m 33ms/step 
+[1m 5/16[0m [32m======[0m[37m==============[0m [1m0s[0m 31ms/step
+[1m 7/16[0m [32m========[0m[37m============[0m [1m0s[0m 31ms/step
+[1m 9/16[0m [32m===========[0m[37m=========[0m [1m0s[0m 31ms/step
+[1m11/16[0m [32m=============[0m[37m=======[0m [1m0s[0m 31ms/step
+[1m13/16[0m [32m================[0m[37m====[0m [1m0s[0m 31ms/step
+[1m15/16[0m [32m==================[0m[37m==[0m [1m0s[0m 32ms/step
+[1m16/16[0m [32m====================[0m[37m[0m [1m0s[0m 57ms/step
+[1m16/16[0m [32m====================[0m[37m[0m [1m1s[0m 59ms/step
+Saved speed_model_pred_vs_true.png
+Saved artifact at 'C:\Users\Soham\AppData\Local\Temp\tmpv31agdv3'. The following endpoints are available:
+
+* Endpoint 'serve'
+  args_0 (POSITIONAL_ONLY): TensorSpec(shape=(None, 100, 9), dtype=tf.float32, name='keras_tensor')
+Output Type:
+  TensorSpec(shape=(None, 1), dtype=tf.float32, name=None)
+Captures:
+  2015172720016: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172720784: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172721744: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172722128: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172721552: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172720976: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172722512: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172721936: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172721168: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172721360: TensorSpec(shape=(), dtype=tf.resource, name=None)
+  2015172720208: TensorSpec(shape=(), dtype=tf.resource, name=None)
+W0000 00:00:1788550500.969939   20020 tf_tfl_flatbuffer_helpers.cc:364] Ignored output_format.
+W0000 00:00:1788550500.970224   20020 tf_tfl_flatbuffer_helpers.cc:367] Ignored drop_control_dependency.
+I0000 00:00:1788550500.972492   20020 reader.cc:83] Reading SavedModel from: C:\Users\Soham\AppData\Local\Temp\tmpv31agdv3
+I0000 00:00:1788550500.976015   20020 reader.cc:52] Reading meta graph with tags { serve }
+I0000 00:00:1788550500.976098   20020 reader.cc:147] Reading SavedModel debug info (if present) from: C:\Users\Soham\AppData\Local\Temp\tmpv31agdv3
+I0000 00:00:1788550501.001347   20020 mlir_graph_optimization_pass.cc:437] MLIR V1 optimization pass is not enabled
+I0000 00:00:1788550501.005226   20020 loader.cc:236] Restoring SavedModel bundle.
+I0000 00:00:1788550501.133031   20020 loader.cc:220] Running initialization op on SavedModel bundle at path: C:\Users\Soham\AppData\Local\Temp\tmpv31agdv3
+I0000 00:00:1788550501.192977   20020 loader.cc:471] SavedModel load for tags { serve }; Status: success: OK. Took 220618 microseconds.
+I0000 00:00:1788550501.262879   20020 dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+loc(callsite(fused["TensorListReserve:", "functional_1/lstm_1/TensorArrayV2_1@__inference_function_14293"] at callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]))): error: 'tf.TensorListReserve' op requires element_shape to be static during TF Lite transformation pass
+loc(callsite(fused["TensorListReserve:", "functional_1/lstm_1/TensorArrayV2_1@__inference_function_14293"] at callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]))): error: failed to legalize operation 'tf.TensorListReserve' that was explicitly marked illegal
+error: Lowering tensor list ops is failed. Please consider using Select TF ops and disabling `_experimental_lower_tensor_list_ops` flag in the TFLite converter object. For example, converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS, tf.lite.OpsSet.SELECT_TF_OPS]\n converter._experimental_lower_tensor_list_ops = False
+Traceback (most recent call last):
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\train_speed_model.py", line 150, in <module>
+    main()
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\train_speed_model.py", line 144, in main
+    tflite_model = converter.convert()
+                   ^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\lite.py", line 1254, in wrapper
+    return self._convert_and_export_metrics(convert_func, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\lite.py", line 1206, in _convert_and_export_metrics
+    result = convert_func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\lite.py", line 1772, in convert
+    saved_model_convert_result = self._convert_as_saved_model()
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\lite.py", line 1753, in _convert_as_saved_model
+    return super(TFLiteKerasModelConverterV2, self).convert(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\lite.py", line 1491, in convert
+    result = _convert_graphdef(
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\convert_phase.py", line 212, in wrapper
+    raise converter_error from None  # Re-throws the exception.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\convert_phase.py", line 205, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\convert.py", line 877, in convert_graphdef
+    data = convert(
+           ^^^^^^^^
+  File "C:\Soham\college work\SlothDevs_DHRUVA\ml\.venv\Lib\site-packages\tensorflow\lite\python\convert.py", line 348, in convert
+    raise converter_error
+tensorflow.lite.python.convert_phase.ConverterError: <unknown>:0: error: loc(callsite(fused["TensorListReserve:", "functional_1/lstm_1/TensorArrayV2_1@__inference_function_14293"] at callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]))): 'tf.TensorListReserve' op requires element_shape to be static during TF Lite transformation pass
+<unknown>:0: note: loc(callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"])): called from
+<unknown>:0: note: loc(fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]): called from
+<unknown>:0: error: loc(callsite(fused["TensorListReserve:", "functional_1/lstm_1/TensorArrayV2_1@__inference_function_14293"] at callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]))): failed to legalize operation 'tf.TensorListReserve' that was explicitly marked illegal
+<unknown>:0: note: loc(callsite(fused["StatefulPartitionedCall:", "StatefulPartitionedCall@__inference_signature_wrapper_14348"] at fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"])): called from
+<unknown>:0: note: loc(fused["StatefulPartitionedCall:", "StatefulPartitionedCall_1"]): called from
+<unknown>:0: error: Lowering tensor list ops is failed. Please consider using Select TF ops and disabling `_experimental_lower_tensor_list_ops` flag in the TFLite converter object. For example, converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS, tf.lite.OpsSet.SELECT_TF_OPS]\n converter._experimental_lower_tensor_list_ops = False
+

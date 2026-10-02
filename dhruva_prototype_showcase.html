@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHRUVA — prototype scope &amp; demo spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F7F9; --card:#FFFFFF; --ink:#141C28; --ink-mid:#4A566B; --ink-soft:#77839A;
+    --rule:#DDE1E8; --rule-soft:#EAEDF1;
+    --sig:#1D5FA8; --sig-bg:#E9F1FA;
+    --dr:#9A5B0C; --dr-bg:#FBF0DF;
+    --grn:#1E7A4C; --grn-bg:#E7F5EC;
+    --red:#B0402C; --red-bg:#FBEAE6;
+    --f-disp:'Archivo',sans-serif; --f-body:'Source Serif 4',Georgia,serif; --f-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:auto; scroll-padding-top:24px;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.68;}
+  .shell{display:grid; grid-template-columns:260px 1fr; gap:0; max-width:1220px; margin:0 auto;}
+
+  nav{position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto; padding:34px 22px 40px; border-right:1px solid var(--rule);}
+  nav .brand{font-family:var(--f-disp); font-weight:600; font-size:1.18rem; letter-spacing:-.01em; margin-bottom:2px;}
+  nav .brand-sub{font-family:var(--f-mono); font-size:.7rem; color:var(--ink-soft); margin-bottom:26px; line-height:1.5;}
+  nav ol{list-style:none; margin:0; padding:0; counter-reset:nv;}
+  nav li{counter-increment:nv; margin-bottom:3px;}
+  nav a{display:block; text-decoration:none; color:var(--ink-mid); font-family:var(--f-disp); font-weight:500; font-size:.83rem; line-height:1.35; padding:6px 8px 6px 30px; border-radius:4px; position:relative;}
+  nav a::before{content:counter(nv); position:absolute; left:8px; top:6px; font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft);}
+  nav a:hover,nav a:focus-visible{background:var(--card); color:var(--ink);}
+  nav .grp{font-family:var(--f-mono); font-size:.66rem; color:var(--ink-soft); margin:20px 0 7px 8px; padding-top:14px; border-top:1px solid var(--rule-soft);}
+  nav ol:first-of-type .grp:first-child{margin-top:0; padding-top:0; border-top:none;}
+
+  main{padding:34px 46px 120px; min-width:0;}
+  @media (max-width:900px){ .shell{grid-template-columns:1fr;} nav{position:static; height:auto; border-right:none; border-bottom:1px solid var(--rule); padding:24px 22px;} main{padding:28px 22px 80px;} }
+
+  .lead{max-width:70ch; margin-bottom:44px;}
+  .lead h1{font-family:var(--f-disp); font-weight:600; font-size:clamp(1.9rem,4vw,2.5rem); line-height:1.12; letter-spacing:-.02em; margin:0 0 16px;}
+  .lead p{font-size:1.09rem; color:var(--ink-mid); margin:0 0 14px;}
+
+  section{max-width:78ch; padding-top:46px; margin-bottom:8px;}
+  section + section{border-top:1px solid var(--rule);}
+  h2{font-family:var(--f-disp); font-weight:600; font-size:1.42rem; letter-spacing:-.015em; line-height:1.25; margin:0 0 6px;}
+  h2 .idx{font-family:var(--f-mono); font-size:.72rem; font-weight:400; color:var(--ink-soft); display:block; margin-bottom:8px;}
+  h3{font-family:var(--f-disp); font-weight:600; font-size:1.05rem; margin:28px 0 8px;}
+  h4{font-family:var(--f-disp); font-weight:600; font-size:.86rem; margin:18px 0 6px; color:var(--ink-mid); text-transform:uppercase; letter-spacing:.03em;}
+  p{margin:0 0 15px;}
+  section > p:first-of-type{margin-top:14px;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:7px;}
+  strong{font-weight:600;}
+  .term{font-family:var(--f-disp); font-weight:500; font-size:.94em; color:var(--sig); background:var(--sig-bg); padding:1px 5px; border-radius:3px; white-space:nowrap;}
+
+  .goal{
+    background:var(--ink); color:#fff; border-radius:12px; padding:26px 28px; margin:20px 0 28px;
+  }
+  .goal .cue{font-family:var(--f-mono); font-size:.68rem; color:#9FB3CC; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em;}
+  .goal p{color:#fff; font-family:var(--f-disp); font-weight:500; font-size:1.15rem; line-height:1.5; margin:0;}
+
+  .eg{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:18px 22px; margin:16px 0;}
+  .eg .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft); margin-bottom:9px;}
+  .eg p:last-child, .eg ul:last-child{margin-bottom:0;}
+
+  .warn{border-left:3px solid var(--dr); background:var(--dr-bg); padding:16px 20px; margin:18px 0;}
+  .warn .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--dr); margin-bottom:8px;}
+  .warn p:last-child{margin-bottom:0;}
+
+  .go{border-left:3px solid var(--grn); background:var(--grn-bg); padding:16px 20px; margin:18px 0;}
+  .go .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--grn); margin-bottom:8px;}
+  .go p:last-child, .go ul:last-child{margin-bottom:0;}
+
+  .no{border-left:3px solid var(--red); background:var(--red-bg); padding:16px 20px; margin:18px 0;}
+  .no .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--red); margin-bottom:8px;}
+  .no p:last-child, .no ul:last-child{margin-bottom:0;}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:.92rem;}
+  th{text-align:left; font-family:var(--f-disp); font-weight:600; font-size:.74rem; color:var(--ink-mid); padding:0 12px 9px 0; border-bottom:1px solid var(--rule); text-transform:uppercase; letter-spacing:.03em;}
+  td{padding:10px 12px 10px 0; border-bottom:1px solid var(--rule-soft); vertical-align:top;}
+  td:last-child,th:last-child{padding-right:0;}
+  .status{font-family:var(--f-mono); font-size:.72rem; font-weight:500; padding:2px 8px; border-radius:100px; white-space:nowrap; display:inline-block;}
+  .status.done{background:var(--grn-bg); color:var(--grn);}
+  .status.progress{background:var(--dr-bg); color:var(--dr);}
+  .status.pending{background:var(--rule-soft); color:var(--ink-soft);}
+
+  .scene{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:18px 22px; margin:16px 0;}
+  .scene .num{font-family:var(--f-mono); font-size:.7rem; color:var(--sig); margin-bottom:6px;}
+  .scene h4{margin-top:0; color:var(--ink); text-transform:none; letter-spacing:0; font-size:1rem;}
+  .scene p:last-child{margin-bottom:0;}
+
+  .filecol{font-family:var(--f-mono); font-size:.85em; background:var(--rule-soft); padding:1px 5px; border-radius:3px;}
+
+  .checklist{list-style:none; margin:16px 0; padding:0;}
+  .checklist li{padding:10px 0 10px 32px; border-bottom:1px solid var(--rule-soft); position:relative;}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li::before{content:"☐"; position:absolute; left:0; top:9px; font-size:1.1rem; color:var(--ink-soft);}
+
+  footer{max-width:78ch; padding-top:44px; margin-top:40px; border-top:1px solid var(--rule); font-size:.95rem; color:var(--ink-mid);}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav>
+  <div class="brand">DHRUVA</div>
+  <div class="brand-sub">Prototype scope &amp; demo spec<br>SIH26168 · Slothdevs · F2BC5B</div>
+  <ol>
+    <div class="grp">Start here</div>
+    <li><a href="#s1">The end goal, in one sentence</a></li>
+    <li><a href="#s2">What "prototype" means here</a></li>
+    <div class="grp">The demo</div>
+    <li><a href="#s3">The demo, scene by scene</a></li>
+    <li><a href="#s4">The three required deliverables</a></li>
+    <div class="grp">What's actually in it</div>
+    <li><a href="#s5">Component inventory: built / simplified / cut</a></li>
+    <li><a href="#s6">Status as of today</a></li>
+    <div class="grp">Bar for success</div>
+    <li><a href="#s7">What "success" looks like</a></li>
+    <li><a href="#s8">What we will not claim</a></li>
+    <li><a href="#s9">Presentation checklist</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<div class="lead">
+  <h1>What the prototype actually is, and what it has to do on Sept 7</h1>
+  <p>This is the answer to "what are we showing, and what's our end goal" — not the day-by-day build plan (<code>PROTOTYPE_PLAN.md</code>) and not the team roles (<code>dhruva_team_structure.html</code>). This is the content spec for the thing itself.</p>
+</div>
+
+<section id="s1">
+  <h2><span class="idx">Section 1</span>The end goal, in one sentence</h2>
+
+  <div class="goal">
+    <div class="cue">By end of day, Sept 7</div>
+    <p>A live app, on a real phone, keeps tracking a moving dot on an offline map through a real GNSS-blocked segment of a real test route — using a genuinely trained speed model, not a scripted animation — plus two written artifacts the problem statement explicitly requires: a position-plot result from the IO-VNBD dataset, and a standalone script proving the same model runs without a phone at all.</p>
+  </div>
+
+  <p>Every section below exists to make that one sentence concrete: what "live," "real," and "genuinely trained" actually mean, what gets shown in what order, and what still counts as success if part of it doesn't fully work.</p>
+</section>
+
+<section id="s2">
+  <h2><span class="idx">Section 2</span>What "prototype" means here</h2>
+
+  <p>This is a proof of the architecture's central claim, not the full production system described in <code>DHRUVA_PROJECT_CONTEXT.md</code>. Several pieces are deliberately simplified so the team can ship something real in three days instead of something impressive-on-paper and untested. Section 5 lists exactly what's simplified and why — none of it is hidden from the demo narrative.</p>
+
+  <div class="eg">
+    <div class="cue">The one claim that must survive intact</div>
+    <p>GNSS enters only as a correction, never as part of the process model. Dead reckoning runs continuously whether or not satellites are visible. This is <strong>the</strong> architectural point (see <code>DHRUVA_PROJECT_CONTEXT.md</code> §4) and the prototype exists to make it visible on a screen, not just claim it in a slide.</p>
+  </div>
+</section>
+
+<section id="s3" class="wide">
+  <h2><span class="idx">Section 3</span>The demo, scene by scene</h2>
+  <p>What a judge actually sees, in order. Each scene has a purpose — nothing here is filler.</p>
+
+  <div class="scene">
+    <div class="num">Scene 1</div>
+    <h4>App opens, offline map loads — phone in airplane mode</h4>
+    <p>Proves the "zero network calls during navigation" claim before anything else happens. If the map loads with no connectivity, the offline-first architecture isn't a slide claim anymore.</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 2</div>
+    <h4>Normal walk/drive, GNSS available</h4>
+    <p>The dot follows the real route on the offline map. Confidence circle stays small and tight. This is the baseline "everything working normally" state the rest of the demo will visibly depart from and return to.</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 3</div>
+    <h4>Entering the GNSS-blocked segment</h4>
+    <p>GPS signal is cut (underground parking, covered walkway, or a shielded antenna — see <code>PROTOTYPE_PLAN.md</code> §2). The dot keeps moving, driven by the speed model and orientation filter alone. The confidence circle visibly grows. Nothing on screen freezes or jumps — this is the moment that answers "what happens in a tunnel."</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 4</div>
+    <h4>Exiting the blocked segment — GNSS reacquisition</h4>
+    <p>The hardest engineering moment in the whole architecture (see <code>DHRUVA_PROJECT_CONTEXT.md</code> §8, "hardest engineering problem"). The first GPS fix after a long gap may disagree with the accumulated estimate — a good filter eases the correction in as the confidence circle shrinks; a bad one snaps the dot visibly. Whichever happens, this is the single most technically interesting thing to narrate live.</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 5</div>
+    <h4>Voice guidance continuing underground</h4>
+    <p>Turn-by-turn instructions keep coming during the blackout, because the route and road graph are local. Short, but it's the user-facing payoff of everything above.</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 6</div>
+    <h4>The position-plot result (slide, not live)</h4>
+    <p>The naive dead-reckoning baseline plotted against true GPS — already produced on real data (<span class="filecol">ml/baseline_position_plot.py</span>, run Sept 4) — shown alongside whatever the trained model's own predicted-vs-true speed plot looks like. This is the literal screening deliverable, presented as evidence, not claimed as a number in prose.</p>
+  </div>
+
+  <div class="scene">
+    <div class="num">Scene 7</div>
+    <h4>The edge-deployable engine, running standalone</h4>
+    <p>The same trained model, on a laptop, with no phone involved: a CSV of external IMU data in, a position plot out. Proves the "same models running standalone for external IMU input" deliverable isn't just a line in the deck.</p>
+  </div>
+
+  <div class="warn">
+    <div class="cue">If the live demo breaks</div>
+    <p>Switch to the recorded fallback (owned by the Demo &amp; Presentation Lead, recorded Day 2 per <code>PROTOTYPE_PLAN.md</code>). Scenes 6 and 7 don't depend on the live app at all and can carry the technical proof even if Scenes 1–5 have to be shown as a recording instead of live.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <h2><span class="idx">Section 4</span>The three required deliverables — mapped explicitly</h2>
+  <p>The problem statement asks for specific things. Here's exactly what in the prototype satisfies each one, so nothing gets built without a clear reason to exist.</p>
+
+  <table>
+    <thead><tr><th>Required</th><th>Satisfied by</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mobile application</strong></td><td>The live app — Scenes 1–5. React Native, offline MapLibre, confidence circle, voice guidance.</td></tr>
+      <tr><td><strong>Edge-deployable software engine</strong></td><td>The standalone Python script — Scene 7. Same trained model, sensor-agnostic, no phone required.</td></tr>
+      <tr><td><strong>Preliminary AI models + position plot from IO-VNBD subset</strong></td><td>Scene 6. Baseline already produced Sept 4; supplemented with the trained speed model's own plot once training finishes.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s5">
+  <h2><span class="idx">Section 5</span>Component inventory: built, simplified, or cut</h2>
+  <p>What's real in this prototype versus what's a documented placeholder for the full architecture. If a judge asks about anything in the "simplified" or "cut" rows, the honest answer is in the third column — say that, don't improvise around it.</p>
+
+  <table>
+    <thead><tr><th>Component</th><th>In the prototype</th><th>Honest answer if asked</th></tr></thead>
+    <tbody>
+      <tr><td>Speed &amp; vibration model</td><td><strong>Built, real</strong> — CNN-LSTM trained on IO-VNBD</td><td>The one piece that can't be simplified — it's the model that replaces the speedometer</td></tr>
+      <tr><td>Orientation (Madgwick)</td><td><strong>Built, real</strong> — known-good implementation, not from scratch</td><td>Standard published method, used as-is</td></tr>
+      <tr><td>Position fusion filter</td><td><strong>Simplified</strong> — Kalman filter tracking position/velocity/heading, no bias states</td><td>"Bias estimation is architected — the state vector has the slots — we're validating the core fusion loop before adding it"</td></tr>
+      <tr><td>GNSS trust weighting</td><td><strong>Simplified</strong> — rule-based thresholds on satellite count/accuracy</td><td>"The learned version is dataset-ready; we spent the time budget on the load-bearing speed model instead"</td></tr>
+      <tr><td>Map matching</td><td><strong>Simplified</strong> — nearest-road snapping + heading check, clipped demo area only</td><td>"Full sequence-decoding map matching is the next milestone; this shows the constraint qualitatively"</td></tr>
+      <tr><td>Non-holonomic constraint</td><td><strong>Simplified</strong> — post-check, not a Kalman pseudo-measurement</td><td>"We apply it as a pseudo-measurement in the full design — zero lateral/vertical velocity in the body frame — the prototype uses a simpler equivalent check"</td></tr>
+      <tr><td>Offline map + tiles</td><td><strong>Built, real</strong> — MapLibre + clipped OSM extract for the demo area only</td><td>Full-country tiles are a packaging decision, not an architecture change</td></tr>
+      <tr><td>Voice guidance</td><td><strong>Built, minimal</strong> — canned route steps, local TTS</td><td>First thing cut if time runs short — not core to the drift claim</td></tr>
+      <tr><td>Data pipeline</td><td><strong>Built, real</strong> — schema normalization, session-reset handling, streaming windows</td><td>Validated against real downloaded data on Sept 4</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s6">
+  <h2><span class="idx">Section 6</span>Status as of today (Sept 5)</h2>
+
+  <table>
+    <thead><tr><th>Piece</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Dataset downloaded &amp; validated</td><td><span class="status done">done</span></td><td>72 synchronised S/V pairs found; schema normalization confirmed correct against real files</td></tr>
+      <tr><td>Baseline position plot (screening deliverable)</td><td><span class="status done">done</span></td><td>Naive dead-reckoning baseline produced and plotted against true GPS — real, honestly bad number, as expected of a baseline</td></tr>
+      <tr><td>Session-reset data gotcha found &amp; handled</td><td><span class="status done">done</span></td><td>Multi-session CSVs now split correctly before windowing</td></tr>
+      <tr><td>Team roles assigned</td><td><span class="status done">done</span></td><td><code>dhruva_team_structure.html</code></td></tr>
+      <tr><td>CNN-LSTM speed model</td><td><span class="status progress">in progress</span></td><td>Day 1 target: first-pass training + loss curve + predicted-vs-true plot</td></tr>
+      <tr><td>RN app shell + offline map</td><td><span class="status progress">in progress</span></td><td>Day 1 target: rendering offline tiles on a real device</td></tr>
+      <tr><td>Madgwick + Kalman filter</td><td><span class="status progress">in progress</span></td><td>Day 1 target: orientation on canned data, KF structure stubbed</td></tr>
+      <tr><td>TFLite integration into the app</td><td><span class="status pending">pending</span></td><td>Day 2 — the single highest-risk task in the plan</td></tr>
+      <tr><td>Edge-deployable engine script</td><td><span class="status pending">pending</span></td><td>Day 2 — reuses the trained model in plain Python</td></tr>
+      <tr><td>Live field test</td><td><span class="status pending">pending</span></td><td>Day 3 — the actual GNSS-blocked-segment run</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s7">
+  <h2><span class="idx">Section 7</span>What "success" looks like</h2>
+  <p>Concrete and measurable — not "it works well," but specific things that either happened or didn't.</p>
+
+  <div class="go">
+    <div class="cue">Success criteria</div>
+    <ul>
+      <li>The app runs the full Scene 1→5 sequence live, on a real phone, without crashing.</li>
+      <li>The confidence circle visibly grows during the GNSS-blocked segment and visibly shrinks after reacquisition — <em>eases in</em>, doesn't snap.</li>
+      <li>A real drift percentage exists from the actual field-test route, measured and stated honestly — whatever number it turns out to be.</li>
+      <li>Both written deliverables (position plot, edge-engine script) exist, run, and produce real output on real data.</li>
+      <li>Every technical role can answer their section of the Q&amp;A cheat sheet without contradicting what the demo just showed.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s8">
+  <h2><span class="idx">Section 8</span>What we will not claim</h2>
+
+  <div class="no">
+    <div class="cue">Non-negotiable, from DHRUVA_PROJECT_CONTEXT.md §11</div>
+    <ul>
+      <li>No unmeasured result stated as fact — if the field test hasn't run yet, the drift number doesn't exist yet either.</li>
+      <li>Say <strong>Unscented Kalman Filter</strong> only if that's genuinely what's running — the prototype's v1 filter is a simplified Kalman filter, and that distinction gets stated, not blurred.</li>
+      <li>Say <strong>GNSS</strong>, not "GPS."</li>
+      <li>Exactly <strong>two</strong> trained models — the speed model, and (if finished in time) the noise-weighting network. Not more, by accident of loose language.</li>
+      <li>Don't claim the &lt;10% drift benchmark is met unless the field test actually measured it.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s9">
+  <h2><span class="idx">Section 9</span>Presentation checklist</h2>
+  <p>Walk through this the morning of Sept 7, before feature freeze.</p>
+
+  <ul class="checklist">
+    <li>Phone charged, demo route walked at least once end-to-end since the last code change</li>
+    <li>Fallback video on hand and tested — plays without needing internet</li>
+    <li>Offline map tiles confirmed present on the demo device (not just the dev machine)</li>
+    <li>Position-plot slide (Scene 6) has the real numbers from the actual training run, not placeholder text</li>
+    <li>Edge-engine script (Scene 7) tested on the presentation laptop, not just the machine it was written on</li>
+    <li>Every technical role has told the Documentation &amp; Research Lead their real, current status today</li>
+    <li>Deck corrections from <code>DHRUVA_PROJECT_CONTEXT.md</code> §7 applied (UKF naming, NHC placement, GNSS-aided labeling)</li>
+    <li>Team has rehearsed the Q&amp;A cheat sheet at least once out loud, together</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Cross-reference: <code>PROTOTYPE_PLAN.md</code> for the day-by-day build sequence, <code>dhruva_team_structure.html</code> for who owns what, <code>DHRUVA_PROJECT_CONTEXT.md</code> for the full architecture and Q&amp;A positions, <code>ml/README.md</code> for the data pipeline's confirmed status and gotchas.</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

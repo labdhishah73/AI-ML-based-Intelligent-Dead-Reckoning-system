@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHRUVA — team structure &amp; role guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F7F9;
+    --card:#FFFFFF;
+    --ink:#141C28;
+    --ink-mid:#4A566B;
+    --ink-soft:#77839A;
+    --rule:#DDE1E8;
+    --rule-soft:#EAEDF1;
+    --sig:#1D5FA8;
+    --sig-bg:#E9F1FA;
+    --dr:#9A5B0C;
+    --dr-bg:#FBF0DF;
+    --grn:#1E7A4C;
+    --grn-bg:#E7F5EC;
+    --f-disp:'Archivo',sans-serif;
+    --f-body:'Source Serif 4',Georgia,serif;
+    --f-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:24px;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--f-body); font-size:17px; line-height:1.68;
+  }
+  .shell{display:grid; grid-template-columns:260px 1fr; gap:0; max-width:1220px; margin:0 auto;}
+
+  nav{
+    position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+    padding:34px 22px 40px; border-right:1px solid var(--rule);
+  }
+  nav .brand{font-family:var(--f-disp); font-weight:600; font-size:1.18rem; letter-spacing:-.01em; margin-bottom:2px;}
+  nav .brand-sub{font-family:var(--f-mono); font-size:.7rem; color:var(--ink-soft); margin-bottom:26px; line-height:1.5;}
+  nav ol{list-style:none; margin:0; padding:0; counter-reset:nv;}
+  nav li{counter-increment:nv; margin-bottom:3px;}
+  nav a{
+    display:block; text-decoration:none; color:var(--ink-mid);
+    font-family:var(--f-disp); font-weight:500; font-size:.83rem; line-height:1.35;
+    padding:6px 8px 6px 30px; border-radius:4px; position:relative;
+  }
+  nav a::before{
+    content:counter(nv); position:absolute; left:8px; top:6px;
+    font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft);
+  }
+  nav a:hover,nav a:focus-visible{background:var(--card); color:var(--ink);}
+  nav .grp{
+    font-family:var(--f-mono); font-size:.66rem; color:var(--ink-soft);
+    margin:20px 0 7px 8px; padding-top:14px; border-top:1px solid var(--rule-soft);
+  }
+  nav ol:first-of-type .grp:first-child{margin-top:0; padding-top:0; border-top:none;}
+
+  main{padding:34px 46px 120px; min-width:0;}
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;}
+    nav{position:static; height:auto; border-right:none; border-bottom:1px solid var(--rule); padding:24px 22px;}
+    main{padding:28px 22px 80px;}
+  }
+
+  .lead{max-width:68ch; margin-bottom:44px;}
+  .lead h1{
+    font-family:var(--f-disp); font-weight:600; font-size:clamp(1.9rem,4vw,2.5rem);
+    line-height:1.12; letter-spacing:-.02em; margin:0 0 16px;
+  }
+  .lead p{font-size:1.09rem; color:var(--ink-mid); margin:0 0 14px;}
+
+  section{max-width:78ch; padding-top:46px; margin-bottom:8px;}
+  section + section{border-top:1px solid var(--rule);}
+  h2{
+    font-family:var(--f-disp); font-weight:600; font-size:1.42rem;
+    letter-spacing:-.015em; line-height:1.25; margin:0 0 6px;
+  }
+  h2 .idx{
+    font-family:var(--f-mono); font-size:.72rem; font-weight:400; color:var(--ink-soft);
+    display:block; margin-bottom:8px;
+  }
+  h3{font-family:var(--f-disp); font-weight:600; font-size:1.02rem; margin:28px 0 8px;}
+  h4{font-family:var(--f-disp); font-weight:600; font-size:.88rem; margin:18px 0 6px; color:var(--ink-mid); text-transform:uppercase; letter-spacing:.03em;}
+  p{margin:0 0 15px;}
+  section > p:first-of-type{margin-top:14px;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:7px;}
+  strong{font-weight:600;}
+
+  .term{
+    font-family:var(--f-disp); font-weight:500; font-size:.94em;
+    color:var(--sig); background:var(--sig-bg);
+    padding:1px 5px; border-radius:3px; white-space:nowrap;
+  }
+
+  .badge{
+    display:inline-block; font-family:var(--f-mono); font-size:.7rem; font-weight:500;
+    padding:4px 10px; border-radius:100px; margin-bottom:16px;
+  }
+  .badge.tech{ background:var(--sig-bg); color:var(--sig); }
+  .badge.nontech{ background:var(--dr-bg); color:var(--dr); }
+
+  .mission{
+    font-size:1.08rem; color:var(--ink); font-weight:500; font-family:var(--f-disp);
+    line-height:1.4; margin:0 0 20px; padding-bottom:18px; border-bottom:1px solid var(--rule-soft);
+  }
+
+  .eg{
+    background:var(--card); border:1px solid var(--rule);
+    border-radius:10px; padding:18px 22px; margin:16px 0;
+  }
+  .eg .cue{
+    font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft);
+    margin-bottom:9px;
+  }
+  .eg p:last-child, .eg ul:last-child{margin-bottom:0;}
+
+  .warn{
+    border-left:3px solid var(--dr); background:var(--dr-bg);
+    padding:16px 20px; margin:18px 0; border-radius:0;
+  }
+  .warn .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--dr); margin-bottom:8px;}
+  .warn p:last-child{margin-bottom:0;}
+
+  .go{
+    border-left:3px solid var(--grn); background:var(--grn-bg);
+    padding:16px 20px; margin:18px 0; border-radius:0;
+  }
+  .go .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--grn); margin-bottom:8px;}
+  .go p:last-child, .go ul:last-child{margin-bottom:0;}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:.92rem;}
+  th{
+    text-align:left; font-family:var(--f-disp); font-weight:600; font-size:.74rem;
+    color:var(--ink-mid); padding:0 12px 9px 0; border-bottom:1px solid var(--rule);
+    text-transform:uppercase; letter-spacing:.03em;
+  }
+  td{padding:10px 12px 10px 0; border-bottom:1px solid var(--rule-soft); vertical-align:top;}
+  td:last-child,th:last-child{padding-right:0;}
+  td.day{font-family:var(--f-mono); font-size:.78rem; color:var(--ink-soft); white-space:nowrap;}
+
+  .filecol{font-family:var(--f-mono); font-size:.85em; background:var(--rule-soft); padding:1px 5px; border-radius:3px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:16px 0;}
+  @media (max-width:700px){ .grid2{grid-template-columns:1fr;} }
+  .grid2 .box{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:16px 18px;}
+  .grid2 .box h4{margin-top:0;}
+  .grid2 .box ul{margin-bottom:0;}
+
+  .roles-index{list-style:none; margin:20px 0; padding:0; display:grid; gap:10px;}
+  .roles-index li{
+    background:var(--card); border:1px solid var(--rule); border-radius:10px;
+    padding:14px 18px; display:flex; align-items:baseline; gap:14px; margin-bottom:0;
+  }
+  .roles-index .n{font-family:var(--f-mono); font-size:.8rem; color:var(--ink-soft); min-width:20px;}
+  .roles-index .t{font-family:var(--f-disp); font-weight:600; font-size:.96rem;}
+  .roles-index .d{color:var(--ink-mid); font-size:.9rem;}
+
+  figure{margin:26px 0 22px; max-width:none;}
+  figure svg{width:100%; height:auto; display:block;}
+  figcaption{
+    font-family:var(--f-mono); font-size:.7rem; color:var(--ink-soft);
+    margin-top:12px; line-height:1.6;
+  }
+  .dbox-t{font-family:var(--f-disp); font-weight:600; font-size:13.5px;}
+  .dbox-s{font-family:var(--f-body); font-size:12px;}
+
+  .wide{max-width:none;}
+  .wide > *:not(figure){max-width:78ch;}
+
+  footer{
+    max-width:78ch; padding-top:44px; margin-top:40px; border-top:1px solid var(--rule);
+    font-size:.95rem; color:var(--ink-mid);
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav>
+  <div class="brand">DHRUVA</div>
+  <div class="brand-sub">Team structure<br>SIH26168 · Slothdevs · F2BC5B</div>
+  <ol>
+    <div class="grp">Start here</div>
+    <li><a href="#s1">Why 6+2, not 8 generic roles</a></li>
+    <li><a href="#s2">The 8 roles at a glance</a></li>
+    <li><a href="#s3">How the roles connect</a></li>
+    <div class="grp">The 6 technical roles</div>
+    <li><a href="#r1">1 · ML Engineer — Speed Model</a></li>
+    <li><a href="#r2">2 · Data Engineer — Pipeline</a></li>
+    <li><a href="#r3">3 · Mobile App Engineer</a></li>
+    <li><a href="#r4">4 · Sensor &amp; Fusion Engineer</a></li>
+    <li><a href="#r5">5 · Integration Engineer</a></li>
+    <li><a href="#r6">6 · Systems / Infra Engineer</a></li>
+    <div class="grp">The 2 "non-tech" roles</div>
+    <li><a href="#r7">7 · Documentation &amp; Research Lead</a></li>
+    <li><a href="#r8">8 · Demo &amp; Presentation Lead</a></li>
+    <div class="grp">Reference</div>
+    <li><a href="#s4">Shared rules everyone follows</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<div class="lead">
+  <h1>DHRUVA — who's building what, and what they need to know cold</h1>
+  <p>Eight roles for eight people, mapped onto the 3-day prototype plan (<code>PROTOTYPE_PLAN.md</code>) and the full architecture (<code>DHRUVA_PROJECT_CONTEXT.md</code>). Every role gets the same depth of detail — including the two labeled "non-technical."</p>
+</div>
+
+<section id="s1">
+  <h2><span class="idx">Section 1</span>Why 6+2, not 8 generic roles</h2>
+
+  <p>The project has six real engineering domains — the six technical roles below map onto them directly. Two more people are needed for documentation and for running the actual demo, and it would be a mistake to treat those as roles anyone can fill with zero technical grounding.</p>
+
+  <div class="warn">
+    <div class="cue">Read this before assigning people</div>
+    <p><strong>"Non-technical" here is a label, not a skill requirement.</strong> The Documentation &amp; Research Lead has to understand the Unscented Kalman Filter well enough to correct a jury's misconception about it. The Demo &amp; Presentation Lead has to recognise, live, whether the confidence circle growing on screen means the filter is working correctly or means something just broke — and know which one it is before a judge asks. Neither role is "the person who doesn't need to get the tech." They're the two roles that have to understand <em>all</em> of it, horizontally, rather than going deep on one piece of it.</p>
+  </div>
+
+  <p>Put your two strongest communicators in roles 7 and 8 — not your two least technical people. If someone can't currently explain why GNSS "joins only at the measurement update," they're not ready for either non-tech role yet, and that's a Day 0 problem to fix, not a Day 3 surprise.</p>
+</section>
+
+<section id="s2">
+  <h2><span class="idx">Section 2</span>The 8 roles at a glance</h2>
+
+  <ul class="roles-index">
+    <li><span class="n">1</span><span class="t">ML Engineer</span><span class="d">— trains the CNN-LSTM speed model, the one piece that must exist</span></li>
+    <li><span class="n">2</span><span class="t">Data Engineer</span><span class="d">— owns the dataset pipeline; already shipped and validated on real data</span></li>
+    <li><span class="n">3</span><span class="t">Mobile App Engineer</span><span class="d">— React Native shell, offline map, UI, confidence circle</span></li>
+    <li><span class="n">4</span><span class="t">Sensor &amp; Fusion Engineer</span><span class="d">— Madgwick orientation + the simplified Kalman filter</span></li>
+    <li><span class="n">5</span><span class="t">Integration Engineer</span><span class="d">— wires the trained model into the live app; the single biggest risk</span></li>
+    <li><span class="n">6</span><span class="t">Systems / Infra Engineer</span><span class="d">— OSM tiles, environment setup, the standalone edge-engine script</span></li>
+    <li><span class="n">7</span><span class="t">Documentation &amp; Research Lead</span><span class="d">— non-tech label, full technical fluency required — owns the story and the Q&amp;A</span></li>
+    <li><span class="n">8</span><span class="t">Demo &amp; Presentation Lead</span><span class="d">— non-tech label, full technical fluency required — owns the room</span></li>
+  </ul>
+</section>
+
+<section id="s3" class="wide">
+  <h2><span class="idx">Section 3</span>How the roles connect</h2>
+
+  <p>Three tracks start independently and don't block each other. Two of them converge into Integration, which is the highest-risk single point in the whole plan — nothing reaches the phone screen until it works.</p>
+
+  <figure>
+    <svg viewBox="0 0 820 700" role="img" aria-labelledby="d1t d1d">
+      <title id="d1t">DHRUVA team dependency flow</title>
+      <desc id="d1d">Data Engineer, Sensor and Fusion Engineer, and Infra Engineer start independently. ML Engineer depends on Data Engineer. Integration Engineer depends on ML Engineer and Sensor and Fusion Engineer. Mobile App Engineer depends on Integration Engineer and Infra Engineer. Demo and Presentation Lead depends on Mobile App Engineer. Documentation and Research Lead cuts across every role.</desc>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Row 1: independent starters -->
+      <rect x="20" y="20" width="230" height="60" rx="8" fill="#E9F1FA" stroke="#8FB3D6" stroke-width="1"/>
+      <text class="dbox-t" x="135" y="46" text-anchor="middle" fill="#123F6E">2 · Data Engineer</text>
+      <text class="dbox-s" x="135" y="65" text-anchor="middle" fill="#1D5FA8">Independent start — done Sept 4</text>
+
+      <rect x="295" y="20" width="230" height="60" rx="8" fill="#E9F1FA" stroke="#8FB3D6" stroke-width="1"/>
+      <text class="dbox-t" x="410" y="46" text-anchor="middle" fill="#123F6E">4 · Sensor &amp; Fusion Eng.</text>
+      <text class="dbox-s" x="410" y="65" text-anchor="middle" fill="#1D5FA8">Independent start</text>
+
+      <rect x="570" y="20" width="230" height="60" rx="8" fill="#E9F1FA" stroke="#8FB3D6" stroke-width="1"/>
+      <text class="dbox-t" x="685" y="46" text-anchor="middle" fill="#123F6E">6 · Systems / Infra Eng.</text>
+      <text class="dbox-s" x="685" y="65" text-anchor="middle" fill="#1D5FA8">Independent start</text>
+
+      <!-- arrow Data Engineer -> ML Engineer -->
+      <line x1="135" y1="80" x2="135" y2="146" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <!-- Row 2: ML Engineer -->
+      <rect x="20" y="150" width="230" height="60" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1"/>
+      <text class="dbox-t" x="135" y="176" text-anchor="middle" fill="#6B3F06">1 · ML Engineer</text>
+      <text class="dbox-s" x="135" y="195" text-anchor="middle" fill="#9A5B0C">Trains the speed model</text>
+
+      <!-- arrows into Integration -->
+      <line x1="135" y1="210" x2="135" y2="286" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+      <path d="M410 80 L410 286" fill="none" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <!-- Row 3: Integration Engineer, wide -->
+      <rect x="20" y="290" width="505" height="64" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1"/>
+      <text class="dbox-t" x="272" y="316" text-anchor="middle" fill="#6B3F06">5 · Integration Engineer</text>
+      <text class="dbox-s" x="272" y="337" text-anchor="middle" fill="#9A5B0C">Highest single-point risk in the plan</text>
+
+      <!-- arrow Integration -> Mobile, and Infra -> Mobile -->
+      <line x1="272" y1="354" x2="272" y2="426" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+      <path d="M685 80 L685 426" fill="none" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <!-- Row 4: Mobile App Engineer, wide -->
+      <rect x="20" y="430" width="780" height="64" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="410" y="456" text-anchor="middle" fill="#141C28">3 · Mobile App Engineer</text>
+      <text class="dbox-s" x="410" y="477" text-anchor="middle" fill="#4A566B">Live dot, on an offline map, on a real phone</text>
+
+      <line x1="410" y1="494" x2="410" y2="546" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <!-- Row 5: Demo Lead -->
+      <rect x="20" y="550" width="780" height="64" rx="8" fill="#FFFFFF" stroke="#141C28" stroke-width="1.4"/>
+      <text class="dbox-t" x="410" y="576" text-anchor="middle" fill="#141C28">8 · Demo &amp; Presentation Lead</text>
+      <text class="dbox-s" x="410" y="597" text-anchor="middle" fill="#4A566B">Owns the physical test, the fallback, and the room</text>
+
+      <!-- Row 6: Documentation, dashed cross-cutting -->
+      <rect x="20" y="634" width="780" height="54" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1.2" stroke-dasharray="6 4"/>
+      <text class="dbox-t" x="410" y="657" text-anchor="middle" fill="#6B3F06">7 · Documentation &amp; Research Lead</text>
+      <text class="dbox-s" x="410" y="676" text-anchor="middle" fill="#9A5B0C">Cross-cutting — pulls real status from every row above, daily</text>
+    </svg>
+    <figcaption>Amber = the two roles requiring deep model/filter knowledge plus the highest-risk integration step. White = build/assembly. Dashed = cross-cutting, not a pipeline stage.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= ROLE 1 ================= -->
+<section id="r1">
+  <h2><span class="idx">Role 1 · Technical core</span>ML Engineer — Speed Model</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Own the CNN-LSTM speed &amp; vibration model — the one component in the whole architecture that <em>must</em> exist, because it's what replaces the speedometer and satisfies the "no connection to the vehicle" constraint.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>The model architecture: Conv1D layers for local vibration patterns → LSTM for temporal consistency → Dense output to scalar velocity.</li>
+    <li>Training against <span class="filecol">ml/data_loader.py</span>'s <code>streaming_dataset()</code> generator.</li>
+    <li>TFLite export with int8 post-training quantization for the phone.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>Why this is <strong>per-window regression, not integration</strong> — the model recognises speed from vibration signature per window, so a bad guess in one window doesn't corrupt the next. No accumulating error, unlike double-integrating acceleration.</li>
+    <li>Why the label must come only from the <strong>V-file</strong> (vehicle ground truth) and never from any GPS/S-file column — the <span class="term">data leakage</span> rule. If this model ever sees real speed at inference or simulated-blackout evaluation, the result is meaningless.</li>
+    <li>What <span class="term">quantization</span> costs and doesn't cost (~4× smaller, faster, &lt;1% accuracy loss typically — verify this on your own model, don't assume it).</li>
+    <li>Why the team chose CNN-LSTM over one end-to-end network for the whole pipeline: not enough data in IO-VNBD for that, wouldn't transfer across sensor grades, and gives no uncertainty estimate for the confidence circle.</li>
+  </ul>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Read <span class="filecol">ml/schema.py</span> and <span class="filecol">ml/data_loader.py</span>. Set up TensorFlow. Decide window size and stride with the Data Engineer.</td></tr>
+      <tr><td class="day">Day 1</td><td>Build and train a first-pass model against the 72 synchronised Structure-1 file pairs. Produce a loss curve and a predicted-vs-true speed plot.</td></tr>
+      <tr><td class="day">Day 2</td><td>Quantize to TFLite int8. Verify accuracy didn't collapse post-quantization. Hand the <code>.tflite</code> file to the Integration Engineer.</td></tr>
+      <tr><td class="day">Day 3</td><td>Support integration bugs if the model behaves unexpectedly on-device. Help interpret the field-test drift number honestly.</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Deliverables</h4>
+  <ul>
+    <li>Trained model file + TFLite export.</li>
+    <li>Loss curve and predicted-vs-true speed plot — this doubles as part of the missing screening deliverable.</li>
+  </ul>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs clean windowed data from the <strong>Data Engineer</strong>. Hands the trained model to the <strong>Integration Engineer</strong> and to the <strong>Systems/Infra Engineer</strong> (for the standalone edge-engine script).</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 2 ================= -->
+<section id="r2">
+  <h2><span class="idx">Role 2 · Technical core</span>Data Engineer — Dataset Pipeline</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Own everything between the raw IO-VNBD CSVs and clean, safe training windows. This role is already built and validated against real data as of Sept 4.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li><span class="filecol">ml/schema.py</span> — normalizes all 6 smartphone column layouts and the 1 vehicle layout into two canonical schemas.</li>
+    <li><span class="filecol">ml/data_loader.py</span> — finds matched S/V file pairs, loads and normalizes them, splits recording sessions, and streams fixed-size windows without ever loading the full 30–40GB set into memory.</li>
+    <li><span class="filecol">ml/baseline_position_plot.py</span> — the naive dead-reckoning baseline, already run successfully.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>The six S-file column structures and why only Structure 1 (Yaw/Pitch/Roll gyro labeling) is used for v1 training — Structures 3/4 use the same column positions for X/Y/Z, and whether those are the same physical axes is <strong>unverified</strong>.</li>
+    <li>The <strong>synchronised vs unsynchronised tree</strong> distinction — only the synchronised tree has row-aligned S/V timestamps. The unsynchronised tree needs timestamp interpolation, out of scope for the prototype.</li>
+    <li>The <strong>session-reset gotcha</strong> found in <code>S-M.csv</code>: <code>TIME SINCE START (ms)</code> jumps backward mid-file because multiple recording sessions are concatenated in one CSV. Any time-based slicing must use row position, never a boolean filter on the raw time value, or a later session's small timestamps alias into an earlier window.</li>
+    <li>CSVs are <strong>Latin-1</strong> encoded, not UTF-8 (the <code>m/s²</code> / <code>μT</code> header characters are the tell).</li>
+  </ul>
+
+  <div class="go">
+    <div class="cue">Status</div>
+    <p>Done and validated: 72 synchronised pairs discovered correctly, schema normalization confirmed correct, real baseline number produced (2184% drift on a 60-second segment — expected and correctly diagnostic, not a bug).</p>
+  </div>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Done — dataset downloaded, pipeline validated end-to-end.</td></tr>
+      <tr><td class="day">Day 1</td><td>Spot-check more files for additional session-reset-style anomalies. Prep the exact windowed dataset object for the ML Engineer's training loop.</td></tr>
+      <tr><td class="day">Day 2</td><td>Support the ML Engineer with any data issues surfacing during training.</td></tr>
+      <tr><td class="day">Day 3</td><td>Support parsing of field-test recordings if the demo needs its own logged data analyzed.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Not blocked by anyone. Blocks the <strong>ML Engineer</strong> — nothing on that track starts without this.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 3 ================= -->
+<section id="r3">
+  <h2><span class="idx">Role 3 · Technical core</span>Mobile App Engineer</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Own the React Native app shell, the offline map, and the on-screen experience — the part a judge actually watches.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>RN project scaffold, screen layout, navigation UI.</li>
+    <li>MapLibre GL integration with offline MBTiles (no live map API, no keys, no connectivity dependency).</li>
+    <li>The confidence circle — sized directly off the fusion filter's own covariance, not a separately invented number.</li>
+    <li>Voice guidance stub reading from the locally stored route.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>Why <strong>React Native over Flutter</strong>: the phone only needs 10Hz updates (the 200Hz figure is for the edge engine, not the phone) — at that rate the framework isn't the bottleneck, team velocity is.</li>
+    <li>Why <strong>React Native over native Kotlin/Swift</strong>: native gives tighter sensor control but costs a full UI rewrite; RN can still drop just the sensor layer into a native module later.</li>
+    <li>Why <strong>MapLibre + offline OSM over Google Maps SDK</strong>: removes paid keys and the exact connectivity dependency the whole pitch argues against.</li>
+    <li>What <span class="term">MBTiles</span> is (a single file of pre-rendered map tiles read straight from local storage) and why the confidence circle is "more honest than Google Maps" — Google Maps shows a confident dot while guessing; this surfaces real uncertainty.</li>
+  </ul>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Scaffold the RN project. Install MapLibre RN bindings. Help pick the demo area with Infra and Demo Lead.</td></tr>
+      <tr><td class="day">Day 1</td><td>Get the offline map rendering on a real device. Get raw sensor streams (accel/gyro/mag/GPS) flowing into JS and logging to console — no fusion yet, just plumbing.</td></tr>
+      <tr><td class="day">Day 2</td><td>Wire the fused position stream (from Integration) to the map marker at ~10Hz. Add the confidence circle.</td></tr>
+      <tr><td class="day">Day 3</td><td>Field test, feature freeze by midday, rehearsal.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs the fused position stream from <strong>Integration Engineer</strong> and the map tiles from <strong>Infra Engineer</strong>. Feeds the finished app to the <strong>Demo &amp; Presentation Lead</strong>.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 4 ================= -->
+<section id="r4">
+  <h2><span class="idx">Role 4 · Technical core</span>Sensor &amp; Fusion Engineer</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Own orientation estimation and the position filter — the classical half of the architecture that has to be right for the AI half to mean anything.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>Madgwick orientation filter (use a known-good open-source implementation — don't write the quaternion math from scratch under this deadline).</li>
+    <li>A simplified Kalman filter tracking position, velocity, and heading — <strong>without</strong> IMU bias states in v1 (that's the scoped-down part of the full architecture's UKF).</li>
+    <li>A heading-consistency sanity check standing in for the full non-holonomic pseudo-measurement.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>The Madgwick trick: gravity tells you which way is down (pitch/roll), hard braking/accelerating tells you which way is forward (PCA over the dominant horizontal acceleration axis) for yaw.</li>
+    <li>Why the full design uses a <strong>Kalman filter</strong>'s predict/update cycle in general, and specifically why the real architecture wants an <span class="term">Unscented Kalman Filter</span> — not "Kalman Filter" — over the older EKF (avoids hand-derived Jacobians on a quaternion state, handles large uncertainty growth during long outages better).</li>
+    <li>Why v1 skips the bias states: they're what let good-GPS driving calibrate the sensor model for the next tunnel, a real capability being deferred, not a hidden flaw pretending not to exist.</li>
+    <li>The correct textbook placement of non-holonomic constraints: as a Kalman <strong>pseudo-measurement</strong> (zero lateral/vertical velocity in the body frame), not as a separate later stage — even though the prototype implements a simpler post-check version of it.</li>
+  </ul>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Pick a Madgwick implementation. Define the filter's state vector explicitly (position, velocity, heading — no bias terms in v1).</td></tr>
+      <tr><td class="day">Day 1</td><td>Implement orientation filtering on canned/logged data. Stub the Kalman filter structure with a placeholder speed input so the interface is fixed early for Integration.</td></tr>
+      <tr><td class="day">Day 2</td><td>Wire in the real speed model output and GPS. Add the heading-consistency check.</td></tr>
+      <tr><td class="day">Day 3</td><td>Tune against field-test data. Verify the re-acquisition behavior after a simulated GNSS loss eases in rather than snapping.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs the trained speed model's output (via <strong>Integration Engineer</strong>). Hands the fused position stream to <strong>Integration Engineer</strong>, which passes it to the <strong>Mobile App Engineer</strong>.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 5 ================= -->
+<section id="r5">
+  <h2><span class="idx">Role 5 · Technical core</span>Integration Engineer</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Get the trained model actually running inside the live app and streaming through the fusion filter to the map. This is explicitly the single highest-risk task in the whole plan.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>The TFLite-in-React-Native binding and native module bridging.</li>
+    <li>The glue code connecting: sensor stream → speed model inference → fusion filter → map update.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>On-device TFLite runtime constraints — what inference latency is acceptable at a 10Hz target update rate.</li>
+    <li>Basic RN native module bridging, since the sensor layer and the model inference likely both need native-side plumbing.</li>
+    <li>The entire pipeline end to end, better than almost anyone else on the team, because debugging this role's failures means reasoning across all of the other roles' work at once.</li>
+  </ul>
+
+  <div class="warn">
+    <div class="cue">Why this role is flagged as the top risk</div>
+    <p>If this doesn't work, nothing reaches the screen — not because any individual model or filter is wrong, but because the pieces were never proven to work together on a real phone. Start the "hello world" TFLite-on-device test on Day 0, not Day 2.</p>
+  </div>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Pick a TFLite RN binding library. Run a minimal inference test on the actual target phone before committing to an approach.</td></tr>
+      <tr><td class="day">Day 1</td><td>Continue the hello-world integration in parallel with everyone else building their individual pieces.</td></tr>
+      <tr><td class="day">Day 2</td><td>Full integration: real model, real fusion, real map update at ~10Hz. Highest-risk day in the entire plan.</td></tr>
+      <tr><td class="day">Day 3</td><td>Bug-fix through the field test. Nothing new after feature freeze.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs deliverables from <strong>ML Engineer</strong> and <strong>Sensor &amp; Fusion Engineer</strong>. Feeds the <strong>Mobile App Engineer</strong>. This role's success is the literal success criterion for the demo.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 6 ================= -->
+<section id="r6">
+  <h2><span class="idx">Role 6 · Technical core</span>Systems / Infra Engineer</h2>
+  <span class="badge tech">Technical core</span>
+  <p class="mission">Own everything around the core pipeline that isn't the model, the filter, or the app screen — including the second required deliverable most teams forget: the edge-deployable engine.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>OSM extract for the demo area and MBTiles generation for offline map tiles.</li>
+    <li>Environment and dependency management across the team (<span class="filecol">ml/requirements.txt</span>, RN setup docs).</li>
+    <li>The <strong>standalone edge-deployable engine script</strong>: the same trained model, running in plain Python, reading a CSV of external IMU data and producing a position plot — sensor-agnostic by design, no phone required.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>Why offline OSM/MBTiles matters beyond "no API key": it's proof of the "zero network calls during navigation" claim, which is a core part of the pitch, not a cost-saving detail.</li>
+    <li>What the edge-deployable engine deliverable is actually for: the problem statement requires the same models running standalone for external (non-phone) IMU input, e.g. FOG-grade sensors at 200Hz — this script is the visible proof that requirement isn't being ignored.</li>
+  </ul>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Finalize the demo area and physical route with the Mobile App Engineer and Demo Lead. Clip the OSM extract.</td></tr>
+      <tr><td class="day">Day 1</td><td>Generate MBTiles and get them loading in the RN app (paired with Mobile App Engineer). Start the edge-engine script skeleton.</td></tr>
+      <tr><td class="day">Day 2</td><td>Finish the edge-engine script using the trained model. Confirm it runs standalone, independent of the phone app entirely.</td></tr>
+      <tr><td class="day">Day 3</td><td>Support field-test logistics: recording the fallback video, checking the demo-day environment works without a network connection.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs the trained model from <strong>ML Engineer</strong> for the edge-engine script. Feeds map tiles to the <strong>Mobile App Engineer</strong>.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 7 ================= -->
+<section id="r7">
+  <h2><span class="idx">Role 7 · Labeled "non-technical" — full fluency required</span>Documentation &amp; Research Lead</h2>
+  <span class="badge nontech">Non-tech label — technical fluency required</span>
+  <p class="mission">Own the story: the project context doc, the Q&amp;A positions, terminology precision, and the deck's technical accuracy. This role has to catch a wrong technical claim before a jury does.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li><span class="filecol">DHRUVA_PROJECT_CONTEXT.md</span> — keeping the open items, decisions, and Q&amp;A positions current as the actual build changes them.</li>
+    <li>The deck's technical accuracy, including the known slide-3 fixes: "Kalman Filter" → "Unscented Kalman Filter", the NHC placement answer, "GNSS Mode / Dead Reckoning Mode" → "GNSS-aided / Inertial only".</li>
+    <li>A one-page Q&amp;A cheat sheet the whole team rehearses from.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>The full glossary in <code>dhruva_explained.html</code> — every term well enough to define it without notes.</li>
+    <li>Every Q&amp;A position already drafted: "where's the AI, this looks classical" · "why not one big neural network" · "how do you hit the drift benchmark" · "what's your hardest engineering problem" · "what results do you actually have."</li>
+    <li>The communication rules that make or break credibility in the room: <strong>never state an unmeasured result</strong>, say <span class="term">Unscented Kalman Filter</span> not "Kalman Filter", say <span class="term">GNSS</span> not "GPS", exactly <strong>two</strong> trained models — not four, not six.</li>
+  </ul>
+
+  <div class="warn">
+    <div class="cue">The failure mode this role exists to prevent</div>
+    <p>A team member improvising a number under pressure — "we get about 95% accuracy" — when nothing has actually been measured yet. This role's job is to have asked every technical role, that same day, what's actually true, so nobody on stage has to guess.</p>
+  </div>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Read <code>DHRUVA_PROJECT_CONTEXT.md</code> and <code>dhruva_explained.html</code> cover to cover. Start the deck corrections.</td></tr>
+      <tr><td class="day">Day 1</td><td>Check in with every technical role on what actually got built that day. Keep the open-items list current. Draft Q&amp;A rehearsal questions.</td></tr>
+      <tr><td class="day">Day 2</td><td>Finalize all deck slide corrections. Write out the exact wording for the hardest Q&amp;A answers.</td></tr>
+      <tr><td class="day">Day 3</td><td>Run the team through a Q&amp;A grilling session before the live rehearsal.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs a real status update from <strong>every technical role</strong>, daily — cannot write anything down as fact without asking first. Feeds the <strong>Demo &amp; Presentation Lead</strong> and the whole team's Q&amp;A readiness.</p>
+  </div>
+</section>
+
+<!-- ================= ROLE 8 ================= -->
+<section id="r8">
+  <h2><span class="idx">Role 8 · Labeled "non-technical" — full fluency required</span>Demo &amp; Presentation Lead</h2>
+  <span class="badge nontech">Non-tech label — technical fluency required</span>
+  <p class="mission">Own the actual demo: the physical route, the GNSS-blocked segment, the recorded fallback, and delivering the pitch in the room. Has to know the difference between "the app is working" and "the app looks like it's working" in real time.</p>
+
+  <h4>What you own</h4>
+  <ul>
+    <li>The physical demo route and the GNSS-blocking segment (underground parking, covered walkway, or shielded antenna).</li>
+    <li>The recorded fallback demo, captured personally so its exact behavior is known cold.</li>
+    <li>The feature-freeze cutoff enforcement on Day 3, and the live presentation itself.</li>
+  </ul>
+
+  <h4>Must know cold</h4>
+  <ul>
+    <li>What the confidence circle growing on screen actually means — filter uncertainty rising during an outage — versus what a genuinely broken app looks like, so a live glitch can be diagnosed instead of just noticed.</li>
+    <li>The exact answer to "what's your hardest engineering problem" (re-acquisition after a long GNSS outage) — because this role is the one most likely to be asked to reproduce that exact moment live.</li>
+    <li>The decision criteria for switching to the fallback recording — decided in advance, not improvised mid-demo.</li>
+  </ul>
+
+  <h3>Day-by-day</h3>
+  <table>
+    <thead><tr><th>Day</th><th>Task</th></tr></thead>
+    <tbody>
+      <tr><td class="day">Day 0</td><td>Scout and finalize the physical demo route with the Mobile App and Infra Engineers.</td></tr>
+      <tr><td class="day">Day 1</td><td>Shadow the Mobile App Engineer's early sensor-streaming tests to build an eye for what "working" looks like before it matters.</td></tr>
+      <tr><td class="day">Day 2</td><td>Run the first full field test alongside the Integration Engineer. Personally record the fallback video.</td></tr>
+      <tr><td class="day">Day 3</td><td>Run the final field test. Enforce the feature-freeze cutoff. Run the full rehearsal. Present.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="go">
+    <div class="cue">Depends on / feeds into</div>
+    <p>Needs the working app from <strong>Mobile App Engineer</strong> and the rehearsed answers from <strong>Documentation &amp; Research Lead</strong>. This role is the last checkpoint before judges see anything at all.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <h2><span class="idx">Section 4</span>Shared rules everyone follows, regardless of role</h2>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>Never break</h4>
+      <ul>
+        <li>Never state an unmeasured result as fact.</li>
+        <li>Say <strong>Unscented Kalman Filter</strong>, not "Kalman Filter."</li>
+        <li>Say <strong>GNSS</strong>, not "GPS."</li>
+        <li>Exactly <strong>two</strong> trained models — the speed model and the noise-covariance network.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>If you're not sure</h4>
+      <ul>
+        <li>If a term can't survive a follow-up question, don't use it in the deck or on stage.</li>
+        <li>Ask the <strong>Documentation &amp; Research Lead</strong> before stating anything as an achieved result.</li>
+        <li>Flag scope cuts honestly — "this is architected but simplified for the prototype" is a stronger answer than pretending the cut doesn't exist.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Cross-reference: <code>DHRUVA_PROJECT_CONTEXT.md</code> for the full architecture and decision log, <code>PROTOTYPE_PLAN.md</code> for the day-by-day build plan, <code>dhruva_explained.html</code> for the plain-language explainer and glossary, <code>ml/README.md</code> for the data pipeline's confirmed gotchas.</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

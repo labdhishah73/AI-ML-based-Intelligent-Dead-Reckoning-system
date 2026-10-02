@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHRUVA — how the system works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F7F9;
+    --card:#FFFFFF;
+    --ink:#141C28;
+    --ink-mid:#4A566B;
+    --ink-soft:#77839A;
+    --rule:#DDE1E8;
+    --rule-soft:#EAEDF1;
+    --sig:#1D5FA8;
+    --sig-bg:#E9F1FA;
+    --dr:#9A5B0C;
+    --dr-bg:#FBF0DF;
+    --f-disp:'Archivo',sans-serif;
+    --f-body:'Source Serif 4',Georgia,serif;
+    --f-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:24px;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--f-body); font-size:17px; line-height:1.68;
+  }
+  .shell{display:grid; grid-template-columns:246px 1fr; gap:0; max-width:1180px; margin:0 auto;}
+
+  /* nav */
+  nav{
+    position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+    padding:34px 22px 40px; border-right:1px solid var(--rule);
+  }
+  nav .brand{font-family:var(--f-disp); font-weight:600; font-size:1.18rem; letter-spacing:-.01em; margin-bottom:2px;}
+  nav .brand-sub{font-family:var(--f-mono); font-size:.7rem; color:var(--ink-soft); margin-bottom:26px; line-height:1.5;}
+  nav ol{list-style:none; margin:0; padding:0; counter-reset:nv;}
+  nav li{counter-increment:nv; margin-bottom:3px;}
+  nav a{
+    display:block; text-decoration:none; color:var(--ink-mid);
+    font-family:var(--f-disp); font-weight:500; font-size:.83rem; line-height:1.35;
+    padding:6px 8px 6px 30px; border-radius:4px; position:relative;
+  }
+  nav a::before{
+    content:counter(nv); position:absolute; left:8px; top:6px;
+    font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft);
+  }
+  nav a:hover,nav a:focus-visible{background:var(--card); color:var(--ink);}
+  nav .grp{
+    font-family:var(--f-mono); font-size:.66rem; color:var(--ink-soft);
+    margin:20px 0 7px 8px; padding-top:14px; border-top:1px solid var(--rule-soft);
+  }
+  nav ol:first-of-type .grp:first-child{margin-top:0; padding-top:0; border-top:none;}
+
+  main{padding:34px 46px 120px; min-width:0;}
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr;}
+    nav{position:static; height:auto; border-right:none; border-bottom:1px solid var(--rule); padding:24px 22px;}
+    main{padding:28px 22px 80px;}
+  }
+
+  /* hero */
+  .lead{max-width:66ch; margin-bottom:44px;}
+  .lead h1{
+    font-family:var(--f-disp); font-weight:600; font-size:clamp(1.9rem,4vw,2.5rem);
+    line-height:1.12; letter-spacing:-.02em; margin:0 0 16px;
+  }
+  .lead p{font-size:1.09rem; color:var(--ink-mid); margin:0 0 14px;}
+
+  /* sections */
+  section{max-width:70ch; padding-top:46px; margin-bottom:8px;}
+  section + section{border-top:1px solid var(--rule); }
+  h2{
+    font-family:var(--f-disp); font-weight:600; font-size:1.42rem;
+    letter-spacing:-.015em; line-height:1.25; margin:0 0 6px;
+  }
+  h2 .idx{
+    font-family:var(--f-mono); font-size:.72rem; font-weight:400; color:var(--ink-soft);
+    display:block; margin-bottom:8px;
+  }
+  h3{font-family:var(--f-disp); font-weight:600; font-size:1.02rem; margin:30px 0 8px;}
+  p{margin:0 0 15px;}
+  section > p:first-of-type{margin-top:14px;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:9px;}
+  strong{font-weight:600;}
+  em{font-style:italic;}
+
+  /* technical term inline */
+  .term{
+    font-family:var(--f-disp); font-weight:500; font-size:.94em;
+    color:var(--sig); background:var(--sig-bg);
+    padding:1px 5px; border-radius:3px; white-space:nowrap;
+  }
+  .def{color:var(--ink-mid); font-size:.94em;}
+
+  /* everyday example block */
+  .eg{
+    background:var(--card); border:1px solid var(--rule);
+    border-radius:10px; padding:18px 22px; margin:20px 0;
+  }
+  .eg .cue{
+    font-family:var(--f-mono); font-size:.68rem; color:var(--ink-soft);
+    margin-bottom:9px;
+  }
+  .eg p:last-child{margin-bottom:0;}
+
+  /* jury answer */
+  .jury{
+    border-left:3px solid var(--dr); background:var(--dr-bg);
+    padding:16px 20px; margin:22px 0; border-radius:0;
+  }
+  .jury .cue{
+    font-family:var(--f-mono); font-size:.68rem; color:var(--dr); margin-bottom:8px;
+  }
+  .jury p{margin:0 0 10px;}
+  .jury p:last-child{margin-bottom:0;}
+  .jury .say{font-style:italic;}
+
+  /* fail note */
+  .warn{
+    background:var(--card); border:1px solid var(--rule);
+    border-radius:10px; padding:18px 22px; margin:20px 0;
+  }
+  .warn .cue{font-family:var(--f-mono); font-size:.68rem; color:var(--dr); margin-bottom:9px;}
+  .warn p:last-child{margin-bottom:0;}
+
+  /* tables */
+  table{width:100%; border-collapse:collapse; margin:22px 0; font-size:.95rem;}
+  th{
+    text-align:left; font-family:var(--f-disp); font-weight:600; font-size:.78rem;
+    color:var(--ink-mid); padding:0 12px 9px 0; border-bottom:1px solid var(--rule);
+  }
+  td{padding:11px 12px 11px 0; border-bottom:1px solid var(--rule-soft); vertical-align:top;}
+  td:last-child,th:last-child{padding-right:0;}
+  .yes{color:var(--sig); font-family:var(--f-disp); font-weight:500; font-size:.88rem;}
+  .no{color:var(--ink-soft); font-family:var(--f-disp); font-weight:500; font-size:.88rem;}
+
+  /* error escalation list */
+  .drift{list-style:none; padding:0; margin:18px 0 20px; font-family:var(--f-mono); font-size:.86rem;}
+  .drift li{
+    display:grid; grid-template-columns:92px 1fr; gap:14px; align-items:baseline;
+    padding:8px 0; border-bottom:1px solid var(--rule-soft); margin:0;
+  }
+  .drift li span:first-child{color:var(--ink-soft);}
+  .drift li:last-child{border-bottom:none;}
+  .drift li:last-child span:last-child{color:var(--dr);}
+
+  /* diagram figure */
+  figure{margin:26px 0 22px; max-width:none;}
+  figure svg{width:100%; height:auto; display:block;}
+  figcaption{
+    font-family:var(--f-mono); font-size:.7rem; color:var(--ink-soft);
+    margin-top:12px; line-height:1.6;
+  }
+  .dbox-t{font-family:var(--f-disp); font-weight:600; font-size:14px;}
+  .dbox-s{font-family:var(--f-body); font-size:12.5px;}
+  .dkey{font-family:var(--f-mono); font-size:11px;}
+
+  /* glossary */
+  .gloss{margin:22px 0 0;}
+  .gloss dt{
+    font-family:var(--f-disp); font-weight:600; font-size:.95rem;
+    margin-top:18px;
+  }
+  .gloss dd{margin:4px 0 0; color:var(--ink-mid); font-size:.97rem;}
+
+  .wide{max-width:none;}
+  .wide > *:not(figure){max-width:70ch;}
+
+  footer{
+    max-width:70ch; padding-top:44px; margin-top:40px; border-top:1px solid var(--rule);
+    font-size:.95rem; color:var(--ink-mid);
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav>
+  <div class="brand">DHRUVA</div>
+  <div class="brand-sub">SIH26168 · Slothdevs<br>how the system works</div>
+  <ol>
+    <div class="grp">Foundations</div>
+    <li><a href="#s1">The whole idea in one page</a></li>
+    <li><a href="#s2">What your dataset actually is</a></li>
+    <li><a href="#s3">The three phone sensors</a></li>
+    <li><a href="#s4">The runtime flow</a></li>
+    <div class="grp">The six modules</div>
+    <li><a href="#s5">Which way is the phone facing</a></li>
+    <li><a href="#s6">How fast are we going</a></li>
+    <li><a href="#s7">Where are we, all told</a></li>
+    <li><a href="#s8">Cars are on roads</a></li>
+    <li><a href="#s9">Is GPS trustworthy now</a></li>
+    <li><a href="#s10">What the user sees</a></li>
+    <div class="grp">Behind it</div>
+    <li><a href="#s11">Training and deployment</a></li>
+    <li><a href="#s12">GPS is not the internet</a></li>
+    <li><a href="#s13">Which parts are actually AI</a></li>
+    <div class="grp">Reference</div>
+    <li><a href="#s14">Answers to expect to give</a></li>
+    <li><a href="#s15">Every term, defined</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<div class="lead">
+  <h1>How DHRUVA works, explained from zero</h1>
+  <p>Every idea here is written first in everyday language, with the technical name in brackets right after it. Read it straight through once and the architecture should make sense without any prior background.</p>
+  <p>The technical names matter for one reason only: a jury will use them, and you need to recognise them when they do.</p>
+</div>
+
+<section id="s1">
+  <h2><span class="idx">Section 1</span>The whole idea in one page</h2>
+
+  <p>Phone navigation works because your phone listens to satellites. Go into a tunnel and the concrete blocks that signal, so the app freezes or the dot jumps around.</p>
+
+  <p>Expensive cars solve this with sensors wired to the wheels. Most vehicles in India — trucks, older cars, two-wheelers — have nothing but a driver's phone on the dashboard. So the challenge is to keep tracking position using only what a bare phone can feel: shaking, tilting, turning.</p>
+
+  <p>The technical name for tracking position this way is <span class="term">dead reckoning</span> <span class="def">(working out where you are from your last known position plus your speed, direction and elapsed time — no external reference)</span>.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>You walk out of a room, close your eyes, and take twenty steps forward, turn right, take ten more. You can still point roughly at where the door is. You didn't see anything — you kept track of your own movement. That's dead reckoning.</p>
+    <p>Now notice what happens if your step length is slightly off, or your "right turn" was really 80 degrees. After twenty steps the error is small. After five hundred, you're nowhere near where you think.</p>
+  </div>
+
+  <p>That last part is the entire engineering problem. Cheap phone sensors are slightly wrong, and small errors compound into large ones fast. Everything in this system exists to fight that.</p>
+</section>
+
+<section id="s2">
+  <h2><span class="idx">Section 2</span>What your dataset actually is</h2>
+
+  <p>Your download contains 564 spreadsheet files in two kinds.</p>
+
+  <table>
+    <thead><tr><th>Kind</th><th>Count</th><th>What's in it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>S files</strong></td><td>241</td><td>What the phone felt — accelerometer, gyroscope, magnetometer, GPS readings, taken many times a second during real drives</td></tr>
+      <tr><td><strong>V files</strong></td><td>323</td><td>The same drives recorded from the car's own computer — real wheel speeds, real speedometer, steering angle, gear, engine RPM</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>The S files are the question. The V files are the answer key.</strong> That single sentence explains the whole training process.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>You're teaching someone to guess a car's speed with their eyes shut. You let them feel the ride and ask "how fast?" They say sixty. You glance at the speedometer: it was fifty-two. You tell them. Repeat a few million times and they get genuinely good at it.</p>
+    <p>The S files are the ride. The V files are the speedometer you check against.</p>
+  </div>
+
+  <p>The formal name for this setup is <span class="term">supervised learning</span> <span class="def">(training a model on examples where the correct answer is already known, so the error can be measured and corrected)</span>. The known-correct values are the <span class="term">ground truth</span> <span class="def">(the reference measurements you treat as correct — here, the car's own sensors)</span>.</p>
+
+  <div class="warn">
+    <div class="cue">Rule you cannot break</div>
+    <p>Once trained, the V files are thrown away. In a real vehicle there is no car computer to ask — that's the entire premise of the problem statement. If your model ever sees real speed while being <em>tested</em>, your results are meaningless. This mistake is called <span class="term">data leakage</span> <span class="def">(accidentally letting information from the answer key reach the model at inference time)</span>, and it is exactly the kind of thing a sharp jury asks about.</p>
+  </div>
+
+  <p>One practical note: the files use six slightly different column layouts, and some name the gyroscope axes <span class="term">X/Y/Z</span> while others use <span class="term">Yaw/Pitch/Roll</span>. Don't assume those are interchangeable without checking — mismatched axes will quietly poison your training data.</p>
+</section>
+
+<section id="s3">
+  <h2><span class="idx">Section 3</span>The three phone sensors</h2>
+
+  <p>Everything the system knows comes from three small chips. Together they're called an <span class="term">IMU</span> <span class="def">(Inertial Measurement Unit — the sensor package that measures motion and rotation)</span>. Phone-grade ones are <span class="term">MEMS</span> <span class="def">(Micro-Electro-Mechanical Systems — tiny, cheap, and noticeably noisier than the industrial kind)</span>.</p>
+
+  <h3>Accelerometer — feels pushes</h3>
+  <p>When a bus brakes and you lurch forward, that lurch is what this measures. It also feels gravity constantly pulling down, which turns out to be very useful.</p>
+
+  <h3>Gyroscope — feels turning</h3>
+  <p>The twist you feel in your body when a car corners. It reports <em>rate</em> of rotation, not direction — it knows you're turning right now, not which way you're pointing.</p>
+
+  <h3>Magnetometer — a compass</h3>
+  <p>Points north, same as a needle compass. Reliable outdoors, easily confused by metal and electronics — including the car body itself.</p>
+
+  <p>Your S files record all three, along three axes each. The axis names are <span class="term">pitch</span> <span class="def">(nose tilting up or down)</span>, <span class="term">roll</span> <span class="def">(tilting side to side)</span> and <span class="term">yaw</span> <span class="def">(rotating like a compass needle, flat)</span>.</p>
+</section>
+
+<section id="s4" class="wide">
+  <h2><span class="idx">Section 4</span>The runtime flow</h2>
+
+  <p>This is what happens on the phone, continuously, while driving. Four processing stages between the sensors and the screen.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 606" role="img" aria-labelledby="d1t d1d">
+      <title id="d1t">DHRUVA runtime pipeline</title>
+      <desc id="d1d">Phone sensors feed four processing stages in sequence; GPS enters only at the third stage; the result goes to the navigation screen.</desc>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <rect x="170" y="24" width="280" height="54" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="310" y="46" text-anchor="middle" fill="#141C28">Phone sensors</text>
+      <text class="dbox-s" x="310" y="65" text-anchor="middle" fill="#4A566B">Always available</text>
+
+      <rect x="490" y="24" width="240" height="54" rx="8" fill="#E9F1FA" stroke="#8FB3D6" stroke-width="1"/>
+      <text class="dbox-t" x="610" y="46" text-anchor="middle" fill="#123F6E">GPS</text>
+      <text class="dbox-s" x="610" y="65" text-anchor="middle" fill="#1D5FA8">Comes and goes</text>
+
+      <line x1="310" y1="78" x2="310" y2="106" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+      <path d="M610 78 L610 306" fill="none" stroke="#1D5FA8" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+
+      <rect x="170" y="112" width="280" height="64" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="310" y="137" text-anchor="middle" fill="#141C28">1 · Which way is it facing</text>
+      <text class="dbox-s" x="310" y="158" text-anchor="middle" fill="#4A566B">Madgwick filter · not trained</text>
+
+      <line x1="310" y1="176" x2="310" y2="206" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="170" y="212" width="280" height="64" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1"/>
+      <text class="dbox-t" x="310" y="237" text-anchor="middle" fill="#6B3F06">2 · How fast are we going</text>
+      <text class="dbox-s" x="310" y="258" text-anchor="middle" fill="#9A5B0C">CNN-LSTM · trained model</text>
+
+      <line x1="310" y1="276" x2="310" y2="306" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="60" y="312" width="640" height="64" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1"/>
+      <text class="dbox-t" x="380" y="337" text-anchor="middle" fill="#6B3F06">3 · Where are we, all told</text>
+      <text class="dbox-s" x="380" y="358" text-anchor="middle" fill="#9A5B0C">Unscented Kalman filter + small trained network</text>
+
+      <line x1="380" y1="376" x2="380" y2="406" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="60" y="412" width="640" height="64" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="380" y="437" text-anchor="middle" fill="#141C28">4 · Cars are on roads</text>
+      <text class="dbox-s" x="380" y="458" text-anchor="middle" fill="#4A566B">Map matching over OpenStreetMap · not trained</text>
+
+      <line x1="380" y1="476" x2="380" y2="506" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="60" y="512" width="640" height="64" rx="8" fill="#FFFFFF" stroke="#141C28" stroke-width="1.4"/>
+      <text class="dbox-t" x="380" y="537" text-anchor="middle" fill="#141C28">Navigation screen</text>
+      <text class="dbox-s" x="380" y="558" text-anchor="middle" fill="#4A566B">Position ten times a second, with a confidence circle</text>
+    </svg>
+    <figcaption>Amber = contains a trained model. White = classical algorithm. The dashed blue line is GPS, and note where it joins.</figcaption>
+  </figure>
+
+  <p>The single most important thing on that diagram: <strong>GPS joins at stage 3, not stage 1.</strong> Stages 1 and 2 behave identically whether or not there is any satellite signal at all. Nothing upstream has to be reconfigured when you enter a tunnel — one input to stage 3 simply stops arriving.</p>
+
+  <p>That is the honest technical explanation for the word "seamless" in your pitch. There is no mode switch to fumble, because the inertial system was running the whole time.</p>
+</section>
+
+<section id="s5">
+  <h2><span class="idx">Section 5</span>Module 1 — which way is the phone facing</h2>
+
+  <p><strong>Official name:</strong> in-vehicle alignment and calibration engine. <strong>Trained model?</strong> No.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>You're blindfolded in a car and I tell you we just accelerated forward. But you're sitting sideways in your seat, so the push you feel isn't on your front — it lands on your shoulder. To make sense of it you first need to know how you're turned.</p>
+  </div>
+
+  <p>The phone has exactly this problem. It's clamped in a cradle at some arbitrary angle. When the car accelerates forward, the phone feels a push along a diagonal of its own axes, not along "forward". Work out its angle and you can correct every reading that follows.</p>
+
+  <p>The angle is called the phone's <span class="term">orientation</span> <span class="def">(its pitch, roll and yaw relative to the world)</span>, and correcting readings with it is a <span class="term">frame transformation</span> <span class="def">(rewriting measurements from the phone's own axes into the vehicle's axes)</span>.</p>
+
+  <h3>Trick one — gravity tells you which way is down</h3>
+  <p>Gravity always pulls straight down. Whichever direction the phone feels a constant tug is down, and from that you get how much it's tilted. Same as knowing which way is up in a pitch-dark room because you can feel your own weight.</p>
+
+  <h3>Trick two — braking tells you which way is forward</h3>
+  <p>A car can only really accelerate and brake along one line: forwards and backwards. It cannot shove itself sideways. So the module watches for hard braking and hard accelerating, notes which direction those pushes come from, and concludes that must be the vehicle's forward axis.</p>
+
+  <p>The statistical method for finding that dominant direction in the data is <span class="term">PCA</span> <span class="def">(Principal Component Analysis — finds the axis along which a set of measurements varies most)</span>.</p>
+
+  <h3>Where "Madgwick" comes from</h3>
+  <p>Sebastian Madgwick published a recipe in 2010 for combining the three sensors into an orientation estimate. Saying "we use the Madgwick filter" is like saying "we use Pythagoras' theorem" — it's a person's name attached to a method, not a mysterious technology.</p>
+
+  <p>His recipe is needed because each sensor alone is inadequate:</p>
+  <ul>
+    <li>The <strong>gyroscope</strong> is smooth and fast but slowly wanders off, like a clock that loses a few seconds every hour. The technical term is <span class="term">drift</span> <span class="def">(error that accumulates steadily over time)</span>.</li>
+    <li>The <strong>accelerometer</strong> gives an absolute reference through gravity, but gets confused whenever the car itself is accelerating — because then it's feeling gravity <em>plus</em> the car's motion.</li>
+    <li>The <strong>magnetometer</strong> gives absolute heading but is disturbed by the steel around it.</li>
+  </ul>
+
+  <p>The recipe blends all three so each covers the others' weaknesses. It has one tuning dial, written as <span class="term">beta</span> <span class="def">(controls how much the filter trusts gravity and the compass versus the gyroscope)</span>. Turn it up and it corrects faster but picks up more noise; turn it down and it's smoother but drifts more.</p>
+
+  <div class="jury">
+    <div class="cue">Likely question — why not use Android's built-in orientation sensor?</div>
+    <p class="say">Because it's a vendor black box that behaves differently on every phone, we can't tune it for sustained vehicle acceleration, and the edge-deployable engine has to run on external hardware that isn't Android at all. We do use it as a sanity check to validate our own implementation against.</p>
+  </div>
+
+  <div class="warn">
+    <div class="cue">Honest weakness worth naming yourself</div>
+    <p>In a moving vehicle the accelerometer is feeling gravity, the car's acceleration and chassis vibration all at once — while the method assumes it's mostly gravity. Standard fixes: smooth the input, and make beta adaptive so the filter leans on the gyroscope during hard driving. Being ready with this is better than being caught without it.</p>
+  </div>
+</section>
+
+<section id="s6">
+  <h2><span class="idx">Section 6</span>Module 2 — how fast are we going</h2>
+
+  <p><strong>Official name:</strong> AI speed and vibration filter. <strong>Trained model?</strong> Yes — this is your main one.</p>
+
+  <p>You have no speedometer. The phone cannot plug into the car. So where does speed come from?</p>
+
+  <h3>The obvious approach, and exactly why it fails</h3>
+
+  <p>Physics says you can add up acceleration over time to get speed. That process is called <span class="term">integration</span> <span class="def">(accumulating a rate over time to get a total — acceleration adds up to speed, speed adds up to distance)</span>.</p>
+
+  <p>Suppose the sensor always reads 0.01 too high — a trivial error. It has a name: <span class="term">sensor bias</span> <span class="def">(a constant offset in a sensor's readings)</span>. Watch what happens when you accumulate it while the car is parked:</p>
+
+  <ul class="drift">
+    <li><span>1 second</span><span>off by a hair</span></li>
+    <li><span>10 seconds</span><span>you "read" 0.4 km/h while stationary</span></li>
+    <li><span>60 seconds</span><span>you "read" 2 km/h while stationary</span></li>
+    <li><span>5 minutes</span><span>you believe you're driving. You're parked.</span></li>
+  </ul>
+
+  <p>And you then integrate that speed again to get distance, so the error compounds twice over. The formal description is that positional error grows <span class="term">quadratically</span> <span class="def">(proportional to time squared — doubling the time quadruples the error)</span>.</p>
+
+  <p><strong>If you remember one thing about this project, remember this:</strong> small sensor errors do not stay small. Accumulating a slightly-wrong number makes it very wrong very quickly. Every other module exists because of this fact.</p>
+
+  <h3>The approach that actually works</h3>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>You can roughly tell how fast a car is going with your eyes closed. The engine note, the tyre roar, how much the seat buzzes. Thirty and a hundred feel nothing alike — and you're not doing any arithmetic. You're recognising a feeling.</p>
+  </div>
+
+  <p>The phone can sense all of that. At 60 km/h the engine rhythm, tyre hum and suspension bounce genuinely form a different pattern than at 20 km/h. So rather than calculating speed, the model <em>recognises</em> it: this pattern of shaking means roughly 60.</p>
+
+  <p>Framed technically, this treats speed estimation as a <span class="term">regression</span> <span class="def">(predicting a continuous number from an input, rather than picking a category)</span> problem over a <span class="term">window</span> <span class="def">(a short fixed-length slice of consecutive sensor readings)</span> of IMU data.</p>
+
+  <p>The crucial advantage: nothing is being accumulated. Each guess is made fresh. A bad guess doesn't make the next guess worse, so errors never snowball.</p>
+
+  <h3>What CNN-LSTM means — two parts, two jobs</h3>
+
+  <p><span class="term">CNN</span> <span class="def">(Convolutional Neural Network — scans across data looking for local patterns)</span> is the pattern spotter. It looks at a slice of shaking and picks out shapes: that sharp jolt is a pothole, that steady buzz is the engine, that rumble is road texture. Similar to how you can pick a friend's voice out of a noisy room without analysing sound waves.</p>
+
+  <p><span class="term">LSTM</span> <span class="def">(Long Short-Term Memory — a network that carries information forward across a sequence)</span> is the memory. Speed cannot jump: if you were doing 60 a second ago, you are not doing 5 now. So when the pattern spotter has a bad moment, the memory overrules it. Like a friend saying "you can't have driven 200 km in ten minutes."</p>
+
+  <p>One sees patterns; the other keeps the answer sensible over time.</p>
+
+  <p>Note that recognising a pothole is the same skill as learning to ignore one — a pothole is a big jolt that says nothing about your speed. That's why this module is called a vibration filter as well as a speed model.</p>
+
+  <h3>How it gets trained and shipped</h3>
+  <p>Windows of S-file sensor data go in, V-file speeds are the target, and the error between prediction and truth is minimised. That error measure is the <span class="term">loss function</span> <span class="def">(the number the training process tries to make as small as possible)</span>. The finished model is shrunk for phone use by <span class="term">quantization</span> <span class="def">(storing the model's numbers at lower precision so it runs faster and smaller with little accuracy cost)</span> and exported to <span class="term">TFLite</span> <span class="def">(TensorFlow Lite — the format for running trained models on phones)</span>.</p>
+
+  <div class="jury">
+    <div class="cue">Why this module is the one that matters</div>
+    <p class="say">The problem statement's central constraint is no physical connection to the vehicle. This model is what satisfies it — it replaces the speedometer. Without a speed estimate, dead reckoning has no distance term and the whole system collapses. Everything else is refinement; this is load-bearing.</p>
+  </div>
+
+  <div class="warn">
+    <div class="cue">Honest weakness worth naming yourself</div>
+    <p>The model learns the vibration signatures present in its training data. A vehicle or road surface unlike anything in the dataset will degrade its accuracy. This is a <span class="term">generalisation</span> <span class="def">(how well a model performs on data unlike what it trained on)</span> limit — and note that the problem statement deliberately supplies extra datasets at evaluation precisely to test it.</p>
+  </div>
+</section>
+
+<section id="s7">
+  <h2><span class="idx">Section 7</span>Module 3 — where are we, all told</h2>
+
+  <p><strong>Official name:</strong> GNSS+INS fusion engine. <strong>Trained model?</strong> Mostly classical, with a small trained part.</p>
+
+  <p>This is the bookkeeper, and the only module that holds an actual answer to "where are we right now". Everything else either feeds it or reads from it.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>You're walking to a friend's house you've been to before. Two sources of information:</p>
+    <p><strong>Your own sense of progress.</strong> "I've walked about ten minutes, so I'm near the park." Always available, but the longer you go without checking, the less sure you get.</p>
+    <p><strong>A street sign, occasionally.</strong> Definitive when you see one — but only appears sometimes, and can be a bit misleading.</p>
+    <p>So you keep a running estimate and adjust whenever a sign appears. And crucially: <em>how much</em> you adjust depends on how confident you already were. Just saw a sign a minute ago and the new one disagrees slightly? Ignore most of it. Been walking blind for half an hour? Trust the sign completely.</p>
+  </div>
+
+  <p>That is the entire mechanism. Your own sense of progress is the phone sensors; the street signs are GPS. The module keeps a best guess plus a how-sure-am-I number, and blends the two according to their relative confidence.</p>
+
+  <p>The formal names: the best guess is the <span class="term">state</span> <span class="def">(the set of numbers being tracked — position, speed, orientation, sensor biases)</span>, and the how-sure-am-I number is the <span class="term">covariance</span> <span class="def">(the filter's own estimate of how uncertain it currently is)</span>. The loop has two halves — <span class="term">predict</span> <span class="def">(move the estimate forward using the sensors; uncertainty grows)</span> and <span class="term">update</span> <span class="def">(pull the estimate toward a new measurement; uncertainty shrinks)</span>.</p>
+
+  <h3>Why a tunnel doesn't break it</h3>
+  <p>In a tunnel you simply stop seeing street signs. You keep walking, keep estimating, and grow steadily less certain. On exit you see a sign and correct. <strong>You never stopped walking.</strong> In the same way, the predict half keeps running off the sensors and only the update half goes quiet.</p>
+
+  <h3>Where the name comes from</h3>
+  <p>A <span class="term">Kalman filter</span> <span class="def">(the standard method for combining a running estimate with occasional noisy measurements)</span> is named after Rudolf Kálmán, who invented it in 1960; it guided Apollo to the moon. Another person's name attached to a recipe.</p>
+
+  <p>The <span class="term">Unscented</span> variant <span class="def">(a version built to handle curved, non-straight-line relationships)</span> is used because turning a corner involves angles, and angles bend the maths in ways the basic version handles clumsily. It works by pushing a carefully chosen spread of sample points — <span class="term">sigma points</span> <span class="def">(representative samples that capture the current estimate and its uncertainty)</span> — through the real equations instead of approximating them.</p>
+
+  <p>The older alternative is the <span class="term">EKF</span> <span class="def">(Extended Kalman Filter — approximates the curves with straight lines using hand-derived calculus)</span>. UKF avoids that derivation work, handles the large uncertainty of a long outage better, and is the variant your problem statement names explicitly.</p>
+
+  <h3>The quietly clever part</h3>
+  <p>The state includes the sensors' own error terms — their <span class="term">bias</span> values. So while GPS is available, every update is implicitly noting "my sensor estimate ran three percent high compared to GPS" and remembering it. By the time you enter the tunnel, the filter already knows your specific phone's quirks and corrects for them.</p>
+
+  <div class="jury">
+    <div class="cue">Worth saying out loud — it sounds smart because it is</div>
+    <p class="say">Driving with good GPS actively makes the tunnel work better. Signal-available stretches aren't just when the system works — they're when it calibrates itself for the outage that hasn't happened yet.</p>
+  </div>
+
+  <h3>Where the small AI part sits</h3>
+  <p>The filter needs to decide how much to trust GPS. Conventionally that's hand-tuned once and left alone — which is the weak point, because GPS between skyscrapers deserves far less trust than GPS on an open highway, and a fixed setting treats them the same. Bad reflected signals like that are called <span class="term">multipath</span> <span class="def">(satellite signal arriving via bounces off buildings, so the reported position is wrong)</span>.</p>
+
+  <p>A small trained network predicts the trust level per moment instead, from satellite count and reported accuracy — both of which are columns in your S files.</p>
+</section>
+
+<section id="s8">
+  <h2><span class="idx">Section 8</span>Module 4 — cars are on roads</h2>
+
+  <p><strong>Official name:</strong> map matching and kinematic constraints. <strong>Trained model?</strong> No.</p>
+
+  <p>Even with everything above, you slowly drift. It's unavoidable with cheap sensors. This module provides a correction that comes from no sensor at all.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>Someone tells you a friend is standing forty metres inside a building. You wouldn't accept it — you'd say they must be on the road next to it. Cars are on roads. Not in buildings, not in rivers, not hovering.</p>
+  </div>
+
+  <p>That's free information, and the module has a road map stored on the phone to use it. Your estimate drifts into a building, it gets nudged back to a sensible road.</p>
+
+  <h3>Why simple snapping isn't enough</h3>
+  <p>Naive approach: each moment, snap to the nearest road. On a highway with a parallel service road, your wobbling estimate snaps highway, service road, highway, service road — your path teleports back and forth and looks broken.</p>
+
+  <p>Better question: <strong>what single continuous drivable route best explains the last thirty seconds?</strong> You cannot teleport between roads, so it commits to one and stays consistent.</p>
+
+  <div class="eg">
+    <div class="cue">Everyday version</div>
+    <p>Reading messy handwriting. You don't decode each letter in isolation — you read the whole word and pick the reading that makes sense. Individual letters that looked ambiguous resolve themselves once the word does.</p>
+  </div>
+
+  <p>The technique for finding the most likely <em>sequence</em> rather than the most likely individual guess is an <span class="term">HMM</span> <span class="def">(Hidden Markov Model — works out the most probable chain of hidden states from a series of noisy observations)</span>, and the algorithm that searches it is <span class="term">Viterbi</span> <span class="def">(finds the single highest-probability path through all the possibilities)</span>. The road map itself comes from <span class="term">OpenStreetMap</span> <span class="def">(a free, openly licensed world map you can download and use offline)</span>.</p>
+
+  <h3>The phrase to not be scared of</h3>
+  <p><span class="term">Non-holonomic constraints</span> <span class="def">(the rule that a vehicle can only move along its own heading — it cannot slide sideways or lift off the road)</span>.</p>
+
+  <p>That's all it means: cars can't do certain things. Any estimate implying a sideways slide gets discarded immediately as physically impossible. It's a cheap rule that deletes a whole category of wrong answers — and sideways drift is exactly what accumulating sensor error tends to produce.</p>
+
+  <div class="jury">
+    <div class="cue">If asked to define the term</div>
+    <p class="say">It means a vehicle can only move along its own heading — it can't translate sideways. We use that to reject position estimates that would be physically impossible for a car.</p>
+  </div>
+
+  <p>This module is your best answer to how you'll meet the benchmark. The sensors alone probably won't hold under ten percent drift over a kilometre. The sensors constrained to a road network will.</p>
+</section>
+
+<section id="s9">
+  <h2><span class="idx">Section 9</span>Module 5 — is GPS trustworthy right now</h2>
+
+  <p><strong>Official name:</strong> seamless GNSS deficit handler. <strong>Trained model?</strong> No.</p>
+
+  <p>Small module, not really an algorithm — a judgment call made continuously. It watches two things your dataset already records: how many satellites are visible, and how accurate GPS itself claims to be. When those degrade, it tells the bookkeeper to stop listening. When they recover, it resumes.</p>
+
+  <p>Because the predict half of the filter never stopped, there is no mode to switch into. The technical framing worth adopting: this is <strong>one continuously running inertial system that accepts GPS corrections when available</strong>, not two modes with a switch between them.</p>
+
+  <div class="warn">
+    <div class="cue">The genuinely hard engineering detail</div>
+    <p>Coming <em>out</em> of a tunnel is trickier than going in. After a kilometre blind your estimate might be eighty metres off. If the first GPS reading is applied at full strength, the dot visibly jumps — the exact ugly behaviour you're claiming to fix.</p>
+    <p>The filter handles this correctly <em>if</em> the uncertainty bookkeeping is right: after a long outage it knows it's unsure, so it eases across rather than snapping. If a jury asks what your hardest problem is, this is an excellent honest answer.</p>
+  </div>
+</section>
+
+<section id="s10">
+  <h2><span class="idx">Section 10</span>Module 6 — what the user sees</h2>
+
+  <p><strong>Official name:</strong> real-time navigation interface. <strong>Trained model?</strong> No.</p>
+
+  <p>Position rendered on an offline map, updating ten times a second, with movement smoothed between updates by <span class="term">interpolation</span> <span class="def">(filling in intermediate positions so motion looks continuous rather than stepping)</span>. Two features from your deck live here.</p>
+
+  <h3>The confidence circle</h3>
+  <p>Instead of a dot pretending to be exact, a circle that grows as certainty falls. In a long tunnel it visibly widens.</p>
+
+  <p>This is a strong feature for a reason worth stating: <strong>you already have the number.</strong> The bookkeeper tracks its own uncertainty as part of ordinary operation, so you're surfacing something you have rather than inventing a display. It's also more honest than the alternative — Google Maps shows a confident dot even while guessing, which is why it feels like it's lying to you underground.</p>
+
+  <h3>Voice guidance that keeps talking</h3>
+  <p>The route and road map are on the phone, so it keeps saying "turn left in 200 metres" in a tunnel. Nothing needs downloading to know the next turn.</p>
+
+  <p>This module is what makes the work visible. The problem statement's opening complaint is user-facing — apps that freeze and jump — and a jury judges whether that's fixed by watching the marker, not by reading your architecture.</p>
+</section>
+
+<section id="s11" class="wide">
+  <h2><span class="idx">Section 11</span>Training and deployment</h2>
+
+  <p>All the heavy work happens before the demo, on a computer. Only the finished models run on the phone.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 434" role="img" aria-labelledby="d2t d2d">
+      <title id="d2t">Training and deployment flow</title>
+      <desc id="d2d">Phone-side and vehicle-side dataset files are used together to train models, which are then compressed and bundled into the app.</desc>
+
+      <rect x="60" y="24" width="280" height="60" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="200" y="48" text-anchor="middle" fill="#141C28">S files — the question</text>
+      <text class="dbox-s" x="200" y="68" text-anchor="middle" fill="#4A566B">What the phone felt</text>
+
+      <rect x="420" y="24" width="280" height="60" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="560" y="48" text-anchor="middle" fill="#141C28">V files — the answer key</text>
+      <text class="dbox-s" x="560" y="68" text-anchor="middle" fill="#4A566B">What the car actually did</text>
+
+      <line x1="200" y1="84" x2="200" y2="134" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+      <line x1="560" y1="84" x2="560" y2="134" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="60" y="140" width="640" height="64" rx="8" fill="#FBF0DF" stroke="#D4A257" stroke-width="1"/>
+      <text class="dbox-t" x="380" y="165" text-anchor="middle" fill="#6B3F06">Training, on a laptop or free cloud GPU</text>
+      <text class="dbox-s" x="380" y="186" text-anchor="middle" fill="#9A5B0C">Guess, check against the answer key, correct, repeat</text>
+
+      <line x1="380" y1="204" x2="380" y2="234" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="170" y="240" width="420" height="64" rx="8" fill="#FFFFFF" stroke="#C3CAD5" stroke-width="1"/>
+      <text class="dbox-t" x="380" y="265" text-anchor="middle" fill="#141C28">Shrink and export</text>
+      <text class="dbox-s" x="380" y="286" text-anchor="middle" fill="#4A566B">Quantized to TFLite, a few MB each</text>
+
+      <line x1="380" y1="304" x2="380" y2="334" stroke="#8B95A6" stroke-width="1.5" marker-end="url(#ah)"/>
+
+      <rect x="170" y="340" width="420" height="64" rx="8" fill="#FFFFFF" stroke="#141C28" stroke-width="1.4"/>
+      <text class="dbox-t" x="380" y="365" text-anchor="middle" fill="#141C28">Bundled inside the app</text>
+      <text class="dbox-s" x="380" y="386" text-anchor="middle" fill="#4A566B">Runs with no server and no internet</text>
+    </svg>
+    <figcaption>The V files appear only in the top row. Past the training box they are gone and never reach the phone.</figcaption>
+  </figure>
+
+  <p>On dataset size: the full set runs into tens of gigabytes across hundreds of files, which is far too much to load into memory at once. The standard fix is a <span class="term">streaming loader</span> <span class="def">(reads and processes small batches straight off disk as training runs, rather than loading everything first)</span>.</p>
+
+  <p>For the proposal stage this barely matters — the problem statement only asks for results from a <em>subset</em>. One file is enough for a preliminary model and a position plot.</p>
+
+  <div class="warn">
+    <div class="cue">Demo-day discipline</div>
+    <p>Bundle the models and the map before judging. Fetching either one live would quietly reintroduce the exact internet dependency your entire pitch argues against — in front of the people evaluating that claim.</p>
+  </div>
+</section>
+
+<section id="s12">
+  <h2><span class="idx">Section 12</span>GPS is not the internet</h2>
+
+  <p>This distinction is easy to blur and important to get right, because a jury may test it.</p>
+
+  <table>
+    <thead><tr><th></th><th>GPS</th><th>Internet</th></tr></thead>
+    <tbody>
+      <tr><td><strong>What it is</strong></td><td>Your phone <em>listening</em> to satellites</td><td>Your phone <em>talking</em> to servers</td></tr>
+      <tr><td><strong>Direction</strong></td><td>One-way, receive only</td><td>Two-way</td></tr>
+      <tr><td><strong>Needs a SIM?</strong></td><td>No. Works in airplane mode.</td><td>Yes</td></tr>
+      <tr><td><strong>Why it fails in a tunnel</strong></td><td>Concrete blocks the satellite signal</td><td>No cell tower coverage</td></tr>
+    </tbody>
+  </table>
+
+  <p>In a tunnel you usually lose both, but for unrelated reasons. Your problem statement is about losing GPS. The umbrella term for satellite positioning generally is <span class="term">GNSS</span> <span class="def">(Global Navigation Satellite System — covers GPS, Galileo, India's NavIC and others)</span>.</p>
+
+  <h3>So how does the map keep working?</h3>
+  <p>You download it in advance. The roads for your area are saved onto the phone's storage before the drive, in a format called <span class="term">MBTiles</span> <span class="def">(a single file holding pre-rendered map tiles, readable straight from local storage)</span>. The app reads it locally, like opening a photo you already saved.</p>
+
+  <p>Nothing is being fetched, so nothing can fail.</p>
+
+  <div class="jury">
+    <div class="cue">Phrase it exactly like this</div>
+    <p class="say">Our app makes zero internet requests while navigating.</p>
+    <p>Not "it degrades gracefully offline". It never needed the internet to begin with — a much stronger claim, and one that also means no paid map API keys.</p>
+  </div>
+</section>
+
+<section id="s13">
+  <h2><span class="idx">Section 13</span>Which parts are actually AI</h2>
+
+  <p>Only two things are trained models. Being precise about this makes you look better, not worse.</p>
+
+  <table>
+    <thead><tr><th>Module</th><th>Trained?</th><th>What it is instead</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Which way is it facing</td><td class="no">No</td><td>Madgwick's recipe plus geometry</td></tr>
+      <tr><td>2 · How fast are we going</td><td class="yes">Yes</td><td>CNN-LSTM — your main model</td></tr>
+      <tr><td>3 · Where are we, all told</td><td class="yes">Partly</td><td>Classical filter with a small trained network for trust levels</td></tr>
+      <tr><td>4 · Cars are on roads</td><td class="no">No</td><td>Map lookup plus probability</td></tr>
+      <tr><td>5 · Is GPS trustworthy</td><td class="no">No</td><td>Threshold checks on satellite count and accuracy</td></tr>
+      <tr><td>6 · What the user sees</td><td class="no">No</td><td>App interface</td></tr>
+    </tbody>
+  </table>
+
+  <div class="jury">
+    <div class="cue">Expect this question: "where's the AI? this looks like classical engineering"</div>
+    <p class="say">We used trained models exactly where traditional methods fail — estimating speed with no speedometer, which has no closed-form equation, and judging sensor trust, which is conventionally just guessed once. We deliberately kept the rest classical, because those are solved problems and a proven method is more reliable than a network we'd have to justify.</p>
+    <p>Better than claiming everything is AI. It shows you know why each piece is what it is.</p>
+  </div>
+
+  <div class="jury">
+    <div class="cue">And the follow-up: "why not one big neural network for everything?"</div>
+    <p class="say">It would need far more training data than this dataset provides, wouldn't transfer across the different sensor grades the problem statement requires, and would give us no uncertainty estimate — which we need, because our interface shows a confidence circle.</p>
+  </div>
+</section>
+
+<section id="s14">
+  <h2><span class="idx">Section 14</span>Answers to expect to give</h2>
+
+  <p>Short forms of the points scattered above, gathered for revision.</p>
+
+  <h3>Why does GPS only enter at stage 3?</h3>
+  <p>Because it's the only stage that can use it. Stage 1 asks which way the phone is tilted — GPS has no opinion on that. Stage 2 must learn speed from shaking alone, or it would only work when GPS exists, which defeats the purpose. Stage 3 is a filter whose whole job is blending an estimate with occasional measurements, and GPS is an occasional measurement. Stage 4 works on the finished answer.</p>
+
+  <h3>How is the transition seamless?</h3>
+  <p>There's nothing to transition. The inertial system runs continuously; GPS is an optional input that stops arriving. Stages 1 and 2 behave identically either way, so nothing is reconfigured mid-drive.</p>
+
+  <h3>How do you hit under ten percent drift over a kilometre?</h3>
+  <p>Not with the sensors alone. The road-network constraint is what closes the gap — a drifting estimate gets bound to a physically drivable route.</p>
+
+  <h3>What's your hardest engineering problem?</h3>
+  <p>Re-acquisition on tunnel exit. After a long outage the first GPS reading may disagree substantially, and applying it at full strength makes the marker jump — the exact defect we're claiming to fix.</p>
+
+  <h3>What's the weakest part of your pipeline?</h3>
+  <p>The orientation filter assumes the accelerometer is mostly reading gravity, which is least true during hard driving. Mitigated by smoothing the input and adapting the filter's trust dial.</p>
+
+  <h3>Why no paid map service?</h3>
+  <p>Offline OpenStreetMap data removes the need for any live map API, which means no keys, no billing, and no connectivity dependency — consistent with the rest of the design.</p>
+</section>
+
+<section id="s15">
+  <h2><span class="idx">Section 15</span>Every term, defined</h2>
+
+  <dl class="gloss">
+    <dt>Dead reckoning</dt>
+    <dd>Working out position from a last known point plus speed, direction and elapsed time, with no external reference.</dd>
+
+    <dt>IMU · Inertial Measurement Unit</dt>
+    <dd>The sensor package measuring motion and rotation — accelerometer, gyroscope, and usually magnetometer.</dd>
+
+    <dt>MEMS</dt>
+    <dd>Micro-Electro-Mechanical Systems. The tiny, cheap sensor class used in phones — noticeably noisier than industrial grades.</dd>
+
+    <dt>INS · Inertial Navigation System</dt>
+    <dd>A system that navigates purely from its own motion sensors, with no outside signal.</dd>
+
+    <dt>GNSS</dt>
+    <dd>Global Navigation Satellite System. The umbrella term covering GPS, Galileo, NavIC and others.</dd>
+
+    <dt>Pitch, roll, yaw</dt>
+    <dd>The three tilt angles: nose up or down, tipping side to side, and rotating flat like a compass needle.</dd>
+
+    <dt>Orientation</dt>
+    <dd>Which way a device is facing, expressed as pitch, roll and yaw.</dd>
+
+    <dt>Frame transformation</dt>
+    <dd>Rewriting measurements from one set of axes into another — here, from the phone's axes into the vehicle's.</dd>
+
+    <dt>Drift</dt>
+    <dd>Error that accumulates steadily over time. The core enemy of this project.</dd>
+
+    <dt>Sensor bias</dt>
+    <dd>A constant offset in a sensor's readings. Harmless alone, damaging once accumulated.</dd>
+
+    <dt>Integration</dt>
+    <dd>Accumulating a rate over time to get a total. Acceleration integrates to speed; speed integrates to distance.</dd>
+
+    <dt>Quadratic error growth</dt>
+    <dd>Error proportional to time squared — double the time and the error quadruples. What happens when you integrate a biased signal twice.</dd>
+
+    <dt>Madgwick filter</dt>
+    <dd>A published recipe for combining accelerometer, gyroscope and magnetometer into an orientation estimate. Named after its author.</dd>
+
+    <dt>Beta</dt>
+    <dd>The Madgwick filter's single tuning dial, setting how much it trusts gravity and the compass versus the gyroscope.</dd>
+
+    <dt>PCA · Principal Component Analysis</dt>
+    <dd>A statistical method for finding the axis along which measurements vary most. Used here to find the vehicle's forward direction from braking and acceleration.</dd>
+
+    <dt>Regression</dt>
+    <dd>Predicting a continuous number from an input, as opposed to picking a category.</dd>
+
+    <dt>Window</dt>
+    <dd>A short fixed-length slice of consecutive sensor readings, fed to the model as one input.</dd>
+
+    <dt>CNN · Convolutional Neural Network</dt>
+    <dd>A network that scans across data looking for local patterns. Here, spotting vibration signatures.</dd>
+
+    <dt>LSTM · Long Short-Term Memory</dt>
+    <dd>A network that carries information forward across a sequence. Here, keeping speed estimates consistent over time.</dd>
+
+    <dt>Supervised learning</dt>
+    <dd>Training on examples where the correct answer is known, so error can be measured and corrected.</dd>
+
+    <dt>Ground truth</dt>
+    <dd>The reference measurements treated as correct during training. Here, the car's own sensors.</dd>
+
+    <dt>Data leakage</dt>
+    <dd>Accidentally letting answer-key information reach the model at test time, making results meaningless.</dd>
+
+    <dt>Loss function</dt>
+    <dd>The number training tries to minimise — the gap between prediction and truth.</dd>
+
+    <dt>Generalisation</dt>
+    <dd>How well a model performs on data unlike what it trained on.</dd>
+
+    <dt>Quantization</dt>
+    <dd>Storing a model's numbers at lower precision so it runs smaller and faster, with little accuracy cost.</dd>
+
+    <dt>TFLite · TensorFlow Lite</dt>
+    <dd>The format and runtime for executing trained models on phones.</dd>
+
+    <dt>Streaming loader</dt>
+    <dd>Reads and processes training data in small batches straight off disk, rather than loading it all into memory.</dd>
+
+    <dt>Kalman filter</dt>
+    <dd>The standard method for combining a running estimate with occasional noisy measurements. Named after Rudolf Kálmán.</dd>
+
+    <dt>UKF · Unscented Kalman Filter</dt>
+    <dd>A Kalman variant built for curved, non-linear relationships — like the angles involved in turning.</dd>
+
+    <dt>EKF · Extended Kalman Filter</dt>
+    <dd>The older non-linear variant, which approximates curves with straight lines using hand-derived calculus.</dd>
+
+    <dt>Sigma points</dt>
+    <dd>The representative samples a UKF pushes through the real equations instead of approximating them.</dd>
+
+    <dt>State</dt>
+    <dd>The set of numbers a filter tracks — position, speed, orientation, sensor biases.</dd>
+
+    <dt>Covariance</dt>
+    <dd>A filter's own estimate of how uncertain it currently is. What the confidence circle displays.</dd>
+
+    <dt>Predict and update</dt>
+    <dd>The filter's two half-steps. Predict moves the estimate forward from sensors and uncertainty grows; update pulls it toward a measurement and uncertainty shrinks.</dd>
+
+    <dt>Multipath</dt>
+    <dd>Satellite signal arriving via bounces off buildings, so the reported position is wrong. Common in urban canyons.</dd>
+
+    <dt>Map matching</dt>
+    <dd>Binding an estimated position to a known road network.</dd>
+
+    <dt>HMM · Hidden Markov Model</dt>
+    <dd>A method for finding the most probable chain of hidden states from a series of noisy observations.</dd>
+
+    <dt>Viterbi</dt>
+    <dd>The algorithm that finds the single highest-probability path through an HMM's possibilities.</dd>
+
+    <dt>Non-holonomic constraints</dt>
+    <dd>The rule that a vehicle can only move along its own heading — it cannot slide sideways or lift off the road.</dd>
+
+    <dt>OpenStreetMap</dt>
+    <dd>A free, openly licensed world map that can be downloaded and used entirely offline.</dd>
+
+    <dt>MBTiles</dt>
+    <dd>A single file holding pre-rendered map tiles, readable directly from a phone's storage.</dd>
+
+    <dt>Interpolation</dt>
+    <dd>Filling in intermediate positions between updates so on-screen motion looks continuous.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>Every design choice traces to one constraint from the problem statement: no connection to the vehicle, and no reliance on connectivity. When asked why not use some mainstream service instead, the answer is always that it would quietly bring that dependency back.</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

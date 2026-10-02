@@ -1,0 +1,28 @@
+diff --git a/node_modules/react-native-sensors/android/build.gradle b/node_modules/react-native-sensors/android/build.gradle
+index f1526ec..a2af7fb 100644
+--- a/node_modules/react-native-sensors/android/build.gradle
++++ b/node_modules/react-native-sensors/android/build.gradle
+@@ -6,13 +6,12 @@ def safeExtGet(prop, fallback) {
+ repositories {
+   mavenCentral()
+   google()
+-  jcenter()
+ }
+ 
+ buildscript {
+     repositories {
+         google()
+-        jcenter()
++        mavenCentral()
+     }
+ 
+     dependencies {
+@@ -31,7 +30,7 @@ android {
+         versionCode 1
+         versionName "1.0"
+         ndk {
+-            abiFilters "armeabi-v7a", "x86"
++            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+         }
+     }
+     lintOptions {

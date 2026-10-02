@@ -1,0 +1,13 @@
+# Claude Code local session state — not part of the project
+.claude/
+
+# Python (ml/)
+ml/.venv/
+ml/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Node / React Native (app/) — app/ has its own .gitignore with the full
+# RN-specific list (node_modules, Android/iOS build dirs, etc.); this just
+# covers anything at the root level.
+node_modules/
